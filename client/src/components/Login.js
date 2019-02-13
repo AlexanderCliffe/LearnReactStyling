@@ -1,54 +1,56 @@
 import React, { Component } from "react";
 import "./main.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default class Login extends Component {
   render() {
     return (
       <div>
-        <div class="wrap-login100">
-          <form className="login100-form validate-form" autocomplete="off">
-            <span className="login100-form-title p-b-34 p-t-27">Log in</span>
+        <div className="wrap-login">
+          <form className="login-form validate-form" autoComplete="off">
+            <span className="login-form-title p-b-34 p-t-27">Log in</span>
 
             <div
-              className="wrap-input100 validate-input"
+              className="wrap-input validate-input"
               data-validate="Enter username"
             >
               <input
-                className="input100"
+                className="input"
                 type="text"
                 name="username"
                 placeholder="Username"
               />
-              <span className="focus-input100" data-placeholder="&#xf207;" />
             </div>
 
             <div
-              className="wrap-input100 validate-input"
+              className="wrap-input validate-input"
               data-validate="Enter password"
             >
               <input
-                className="input100"
+                className="input"
                 type="password"
                 name="pass"
                 placeholder="Password"
               />
-              <span className="focus-input100" data-placeholder="&#xf191;" />
+              <div className="focus-input" />
+              <span className=" spanIcon" />
+              <FontAwesomeIcon className="focus-input fontIcon" icon="igloo" />
             </div>
 
-            <div className="contact100-form-checkbox">
+            <div className="contact-form-checkbox">
               <input
-                className="input-checkbox100"
+                className="input-checkbox"
                 id="ckb1"
                 type="checkbox"
                 name="remember-me"
               />
-              <label className="label-checkbox100" for="ckb1">
+              <label className="label-checkbox" htmlFor="ckb1">
                 Remember me
               </label>
             </div>
 
-            <div className="container-login100-form-btn">
-              <button className="login100-form-btn">Login</button>
+            <div className="container-login-form-btn">
+              <button className="login-form-btn">Login</button>
             </div>
 
             <div className="text-center p-t-90">Forgot Password?</div>
