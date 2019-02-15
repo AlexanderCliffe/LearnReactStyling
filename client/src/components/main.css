@@ -4,25 +4,9 @@
   box-sizing: border-box;
 }
 
-body,
-html {
-  height: 100%;
-  /* font-family:  */
-}
-/*---------------------------------------------*/
+/* Input */
 
-a:hover {
-  text-decoration: none;
-  color: #fff;
-}
-
-/*---------------------------------------------*/
 input {
-  outline: none;
-  border: none;
-}
-
-textarea {
   outline: none;
   border: none;
 }
@@ -32,19 +16,15 @@ input:focus::-webkit-input-placeholder {
 }
 
 input::-webkit-input-placeholder {
-  color: #6d3838;
+  color: #ffffff;
 }
 
 input:-ms-input-placeholder {
-  color: #6d3838;
+  color: #ffffff;
 }
 
-label {
-  margin: 0;
-  display: block;
-}
+/* Button */
 
-/*---------------------------------------------*/
 button {
   outline: none !important;
   border: none;
@@ -55,30 +35,15 @@ button:hover {
   cursor: pointer;
 }
 
-iframe {
-  border: none !important;
-}
+/* a tag */
 
-/*//////////////////////////////////////////////////////////////////
-  [ Utility ]*/
-.txt1 {
-  font-family: Poppins-Regular;
-  font-size: 13px;
-  color: #e5e5e5;
-  line-height: 1.5;
-}
-
-/*//////////////////////////////////////////////////////////////////
-  [ login ]*/
-
-.limiter {
-  width: 100%;
-  margin: 0 auto;
+a:hover {
+  text-decoration: none;
+  color: #fff;
 }
 
 .container-login {
   width: 100%;
-  min-height: 100vh;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
@@ -96,18 +61,6 @@ iframe {
   z-index: 1;
 }
 
-.container-login::before {
-  content: "";
-  display: block;
-  position: absolute;
-  z-index: -1;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  background-color: rgba(255, 255, 255, 0.9);
-}
-
 .wrap-login {
   width: 500px;
   border-radius: 10px;
@@ -115,18 +68,14 @@ iframe {
   padding: 55px 55px 37px 55px;
 
   background: #9152f8;
-  background: -webkit-linear-gradient(top, #7579ff, #b224ef);
-  background: -o-linear-gradient(top, #7579ff, #b224ef);
-  background: -moz-linear-gradient(top, #7579ff, #b224ef);
-  background: linear-gradient(top, #7579ff, #b224ef);
+  background: -webkit-linear-gradient(to bottom, #7579ff, #b224ef);
+  background: -o-linear-gradient(to bottom, #7579ff, #b224ef);
+  background: -moz-linear-gradient(to bottom, #7579ff, #b224ef);
+  background: linear-gradient(to bottom, #7579ff, #b224ef);
 }
 
 /*------------------------------------------------------------------
   [ Form ]*/
-
-.login-form {
-  width: 100%;
-}
 
 .login-form-logo {
   font-size: 60px;
@@ -147,7 +96,6 @@ iframe {
 }
 
 .login-form-title {
-  font-family: Poppins-Medium;
   font-size: 30px;
   color: #fff;
   line-height: 1.2;
@@ -181,81 +129,40 @@ iframe {
 }
 
 /*---------------------------------------------*/
-.focus-input {
+
+.icon {
   position: absolute;
-  display: block;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  pointer-events: none;
-  color: #af3c3c;
+  left: 6px;
+  top: 13px;
+  color: white;
 }
 
-.focus-input::before {
-  content: "";
-  display: block;
-  position: absolute;
-  bottom: -2px;
-  left: 0;
-  width: 0;
-  height: 2px;
-
-  -webkit-transition: all 0.4s;
-  -o-transition: all 0.4s;
-  -moz-transition: all 0.4s;
-  transition: all 0.4s;
-
-  background: #fff;
-}
-
-.focus-input::after {
-  font-family: Material-Design-Iconic-Font;
-  font-size: 22px;
-  color: #fff;
-
-  content: attr(href);
-  display: block;
-  width: 100%;
-  position: absolute;
-  top: 6px;
-  left: 0px;
-  padding-left: 5px;
-
-  -webkit-transition: all 0.4s;
-  -o-transition: all 0.4s;
-  -moz-transition: all 0.4s;
-  transition: all 0.4s;
+.input-active {
+  top: -10px;
+  -webkit-transition: all 0.5s;
+  -o-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  transition: all 0.5s;
 }
 
 .input:focus {
   padding-left: 5px;
 }
 
-.input:focus + .focus-input::after {
-  top: -22px;
-  font-size: 18px;
-}
-
-.input:focus + .focus-input::before {
-  width: 100%;
-}
-
-.has-val.input + .focus-input::after {
-  top: -22px;
-  font-size: 18px;
-}
-
-.has-val.input + .focus-input::before {
-  width: 100%;
-}
-
-.has-val.input {
-  padding-left: 5px;
-}
-
 /*==================================================================
   [ Restyle Checkbox ]*/
+
+.invisible {
+  display: none;
+}
+
+.rememberMe-check {
+  cursor: pointer;
+}
+
+.rememberMe-uncheck {
+  cursor: pointer;
+}
 
 .contact-form-checkbox {
   padding-left: 5px;
@@ -268,7 +175,6 @@ iframe {
 }
 
 .label-checkbox {
-  font-family: Poppins-Regular;
   font-size: 13px;
   color: #fff;
   line-height: 1.2;
@@ -277,37 +183,6 @@ iframe {
   position: relative;
   padding-left: 26px;
   cursor: pointer;
-}
-
-.label-checkbox::before {
-  content: "\f26b";
-  font-family: Material-Design-Iconic-Font;
-  font-size: 13px;
-  color: transparent;
-
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  width: 16px;
-  height: 16px;
-  border-radius: 2px;
-  background: #fff;
-  left: 0;
-  top: 50%;
-  -webkit-transform: translateY(-50%);
-  -moz-transform: translateY(-50%);
-  -ms-transform: translateY(-50%);
-  -o-transform: translateY(-50%);
-  transform: translateY(-50%);
-}
-
-.input-checkbox:checked + .label-checkbox::before {
-  color: #555555;
 }
 
 /*------------------------------------------------------------------
@@ -342,10 +217,10 @@ iframe {
   border-radius: 25px;
 
   background: #9152f8;
-  background: -webkit-linear-gradient(bottom, #7579ff, #b224ef);
-  background: -o-linear-gradient(bottom, #7579ff, #b224ef);
-  background: -moz-linear-gradient(bottom, #7579ff, #b224ef);
-  background: linear-gradient(bottom, #7579ff, #b224ef);
+  background: -webkit-linear-gradient(to top, #7579ff, #b224ef);
+  background: -o-linear-gradient(to top, #7579ff, #b224ef);
+  background: -moz-linear-gradient(to top, #7579ff, #b224ef);
+  background: linear-gradient(to top, #7579ff, #b224ef);
   position: relative;
   z-index: 1;
 
@@ -389,67 +264,6 @@ iframe {
   .wrap-login {
     padding: 55px 15px 37px 15px;
   }
-}
-
-/*------------------------------------------------------------------
-  [ Alert validate ]*/
-
-.validate-input {
-  position: relative;
-}
-
-.alert-validate::before {
-  content: attr(data-validate);
-  position: absolute;
-  max-width: 70%;
-  background-color: #fff;
-  border: 1px solid #c80000;
-  border-radius: 2px;
-  padding: 4px 25px 4px 10px;
-  top: 50%;
-  -webkit-transform: translateY(-50%);
-  -moz-transform: translateY(-50%);
-  -ms-transform: translateY(-50%);
-  -o-transform: translateY(-50%);
-  transform: translateY(-50%);
-  right: 0px;
-  pointer-events: none;
-
-  font-family: Poppins-Regular;
-  color: #c80000;
-  font-size: 13px;
-  line-height: 1.4;
-  text-align: left;
-
-  visibility: hidden;
-  opacity: 0;
-
-  -webkit-transition: opacity 0.4s;
-  -o-transition: opacity 0.4s;
-  -moz-transition: opacity 0.4s;
-  transition: opacity 0.4s;
-}
-
-.alert-validate::after {
-  content: "\f12a";
-  font-family: FontAwesome;
-  font-size: 16px;
-  color: #c80000;
-
-  display: block;
-  position: absolute;
-  top: 50%;
-  -webkit-transform: translateY(-50%);
-  -moz-transform: translateY(-50%);
-  -ms-transform: translateY(-50%);
-  -o-transform: translateY(-50%);
-  transform: translateY(-50%);
-  right: 5px;
-}
-
-.alert-validate:hover:before {
-  visibility: visible;
-  opacity: 1;
 }
 
 @media (max-width: 992px) {
