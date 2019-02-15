@@ -111,8 +111,16 @@ a:hover {
 .wrap-input {
   width: 100%;
   position: relative;
-  border-bottom: 2px solid rgba(255, 255, 255, 0.24);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.25);
   margin-bottom: 30px;
+}
+
+.wrap-input-active {
+  border-bottom-color: white;
+  -webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  transition: all 1s;
 }
 
 .input {
@@ -120,12 +128,15 @@ a:hover {
   font-size: 16px;
   color: #fff;
   line-height: 1.2;
-
   display: block;
   width: 100%;
   height: 45px;
   background: transparent;
   padding: 0 5px 0 38px;
+}
+
+.input::placeholder {
+  color: rgb(223, 222, 222);
 }
 
 /*---------------------------------------------*/
@@ -152,15 +163,21 @@ a:hover {
 /*==================================================================
   [ Restyle Checkbox ]*/
 
+.wrap-checkbox-label {
+  display: flex;
+}
+
 .invisible {
   display: none;
 }
 
 .rememberMe-check {
+  color: white;
   cursor: pointer;
 }
 
 .rememberMe-uncheck {
+  color: white;
   cursor: pointer;
 }
 
@@ -177,12 +194,25 @@ a:hover {
 .label-checkbox {
   font-size: 13px;
   color: #fff;
-  line-height: 1.2;
+  line-height: 1.4;
 
   display: block;
   position: relative;
   padding-left: 26px;
   cursor: pointer;
+}
+/* Forgot password div */
+
+.div-forgotPassword {
+  text-align: center;
+  padding-top: 80px;
+}
+
+.div-forgotPassword:hover {
+  color: white;
+}
+.a-forgotPassword {
+  color: #cccccc;
 }
 
 /*------------------------------------------------------------------

@@ -20,11 +20,15 @@ export default class Login extends Component {
   render() {
     let passwordIcon = "icon";
     let usernameIcon = "icon";
+    let wrapInputUsername = "wrap-input";
+    let wrapInputPassword = "wrap-input";
     if (this.state.passwordInput) {
       passwordIcon += " input-active";
+      wrapInputPassword += " wrap-input-active";
     }
     if (this.state.usernameInput) {
       usernameIcon += " input-active";
+      wrapInputUsername += " wrap-input-active";
     }
     let rememberMeChecked = "rememberMe-check";
     let rememberMeUnchecked = "rememberMe-uncheck";
@@ -42,9 +46,9 @@ export default class Login extends Component {
             <form className="login-form validate-form" autoComplete="off">
               <span className="login-form-title">Log in</span>
 
-              <div className="wrap-input">
+              <div className={wrapInputUsername}>
                 <input
-                  className="input inputIgloo"
+                  className="input"
                   type="text"
                   name="usernameInput"
                   placeholder="Username"
@@ -56,9 +60,9 @@ export default class Login extends Component {
                 </div>
               </div>
 
-              <div className="wrap-input">
+              <div className={wrapInputPassword}>
                 <input
-                  className="input inputIgloo"
+                  className="input"
                   type="password"
                   name="passwordInput"
                   placeholder="Password"
@@ -69,29 +73,37 @@ export default class Login extends Component {
                   <FontAwesomeIcon className={passwordIcon} icon="unlock" />
                 </div>
               </div>
-              <div
-                className="checkbox-icons"
-                id="checkbox-icons"
-                onClick={this.onClick}
-              >
-                <FontAwesomeIcon
-                  className={rememberMeUnchecked}
-                  icon="square"
-                />
-                <FontAwesomeIcon
-                  className={rememberMeChecked}
-                  icon="check-square"
-                />
+              <div className="wrap-checkbox-label">
+                <div
+                  className="checkbox-icons"
+                  id="checkbox-icons"
+                  onClick={this.onClick}
+                >
+                  <FontAwesomeIcon
+                    className={rememberMeUnchecked}
+                    icon="square"
+                  />
+                  <FontAwesomeIcon
+                    className={rememberMeChecked}
+                    icon="check-square"
+                  />
+                </div>
+                <div onClick={this.onClick}>
+                  <label className="label-checkbox" htmlFor="checkbox-icons">
+                    Remember me
+                  </label>
+                </div>
               </div>
-              <label className="label-checkbox" htmlFor="checkbox-icons">
-                Remember me
-              </label>
 
               <div className="container-login-form-btn">
                 <button className="login-form-btn">Login</button>
               </div>
 
-              <div className="text-center p-t-90">Forgot Password?</div>
+              <div className="div-forgotPassword">
+                <a href="http://localhost:3000/" className="a-forgotPassword">
+                  Forgot Password?
+                </a>
+              </div>
             </form>
           </div>
         </div>
