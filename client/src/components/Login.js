@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./main.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import backgroundImage from "./gym.jpg";
 
 export default class Login extends Component {
   state = {
@@ -40,7 +41,10 @@ export default class Login extends Component {
     }
 
     return (
-      <div>
+      <div className="wrapper-master">
+        <div className="wrapper-background-image">
+          <div className="background-image" />
+        </div>
         <div className="container-login">
           <div className="wrap-login">
             <form className="login-form validate-form" autoComplete="off">
