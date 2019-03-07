@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import "./main.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import backgroundImage from "./gym.jpg";
 
 export default class Login extends Component {
   state = {

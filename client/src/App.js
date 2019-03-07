@@ -1,32 +1,36 @@
 import React, { Component } from "react";
 import Login from "./components/Login";
-import Navbar from "./components/Navbar";
-//import AHomepage from "./components/Homepage/AHomepage";
-import ExampleBlur from "./components/ExampleBlur/ExampleBlur";
+//import Navbar from "./components/Navbar";
+import MainPage from "./components/MainPage/MainPage";
+//import ExampleBlur from "./components/ExampleBlur/ExampleBlur";
 import { library } from "@fortawesome/fontawesome-svg-core";
-//import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-//import { faIgloo } from "@fortawesome/free-solid-svg-icons";
 import {
   faUnlock,
   faUser,
   faAddressCard,
-  faInfoCircle
+  faInfoCircle,
+  faDumbbell,
+  faCalendar,
+  faCubes,
+  faWeight,
+  faClock,
+  faRedoAlt
 } from "@fortawesome/fontawesome-free-solid";
 import { faSquare, faCheckSquare } from "@fortawesome/fontawesome-free-regular";
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  Link,
-  Redirect
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 library.add(
   faUnlock,
   faUser,
   faSquare,
   faCheckSquare,
   faAddressCard,
-  faInfoCircle
+  faInfoCircle,
+  faDumbbell,
+  faCalendar,
+  faCubes,
+  faWeight,
+  faClock,
+  faRedoAlt
 );
 class App extends Component {
   render() {
@@ -35,7 +39,7 @@ class App extends Component {
         <Router>
           <Switch>
             <Route exact path="/login" component={Login} />
-            <Route exact path="/" component={ExampleBlur} />
+            <Route exact path="/" component={MainPage} />
           </Switch>
         </Router>
       </div>

@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import "./Navbar.css";
-
-export default class Navbar extends Component {
+import "./css/Navbar.css";
+export default class TopNav extends Component {
   render() {
     return (
       <div className="nav-wrapper">
