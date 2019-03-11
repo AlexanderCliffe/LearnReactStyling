@@ -3,11 +3,14 @@ import "./css/style.css";
 import TopNav from "./TopNav";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import exerciseArray from "../../exercises";
+import todaylog from "./sampleData";
+import Datepicker from "../datePicker/datePicker";
 export default class MainPage extends Component {
   state = {
     exerciseNameInput: false,
     exercises: exerciseArray,
-    updatedExercises: exerciseArray
+    updatedExercises: exerciseArray,
+    currentDayLog: todaylog
   };
   onFocus = e => {
     this.setState({ [e.target.name]: true });
@@ -39,16 +42,10 @@ export default class MainPage extends Component {
   render() {
     let exerciseNamesList = "list-exerciseName";
     let exerciseNameInput = "input-exerciseName";
-    if (this.state.exerciseNameInput) {
-      exerciseNamesList += "-active";
-      //wrapInputExerciseName += " input-active";
-      exerciseNameInput += " icon-active";
-    }
-    if (!this.state.exerciseNameInput) {
-      exerciseNamesList = "list-exerciseName";
-      //wrapInputExerciseName += " input-active";
-      exerciseNameInput += "input-exerciseName";
-    }
+    exerciseNamesList += "-active";
+    //wrapInputExerciseName += " input-active";
+    exerciseNameInput += " icon-active";
+
     return (
       <div>
         <TopNav />
@@ -57,34 +54,44 @@ export default class MainPage extends Component {
             <div className="form-wrapper">
               <form className="form-addExercise">
                 <span className="form-title">Add exercise</span>
-                <div className="x">
-                  {/* <label htmlFor="exerciseNameInput" className="input-label">
-                    <FontAwesomeIcon
-                      className={exerciseNameIcon}
-                      icon="dumbbell"
-                    />
-                    Exercise Name
-                  </label> */}
-                  <div>
-                    <input
-                      className={exerciseNameInput}
-                      name="exerciseNameInput"
-                      type="text"
-                      placeholder="Type to filter"
-                      onKeyUp={this.filterExercises}
-                      autoComplete="off"
-                      onFocus={this.onFocus}
-                      onBlur={this.onBlur}
-                    />
-                    <ul className={exerciseNamesList}>
-                      {this.state.updatedExercises.map((exercise, key) => {
-                        return (
-                          <li key={key} value={exercise.name}>
-                            {exercise.name}
-                          </li>
-                        );
-                      })}
-                    </ul>
+                <div className="form-content-wrapper">
+                  <div className="left-form-wrapper">
+                    <div className="date-wrapper" />
+                    <Datepicker />
+                    <div className="currentDay-log-wrapper">
+                      <ul className="currentDay-log-list">
+                        {this.state.currentDayLog.map((workout, key) => {
+                          return (
+                            <li key={key} value={workout.exercise}>
+                              {workout.exercise}
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    </div>
+                  </div>
+                  <div className="right-form-wrapper">
+                    <div>
+                      <input
+                        className={exerciseNameInput}
+                        name="exerciseNameInput"
+                        type="text"
+                        placeholder="Type to filter"
+                        onKeyUp={this.filterExercises}
+                        autoComplete="off"
+                        onFocus={this.onFocus}
+                        onBlur={this.onBlur}
+                      />
+                      <ul className={exerciseNamesList}>
+                        {this.state.updatedExercises.map((exercise, key) => {
+                          return (
+                            <li key={key} value={exercise.name}>
+                              {exercise.name}
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    </div>
                   </div>
                 </div>
               </form>

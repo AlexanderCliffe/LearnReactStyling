@@ -32,7 +32,7 @@
   position: relative;
   width: 800px;
   border-radius: 12px;
-  padding: 55px 55px 37px 55px;
+  padding: 15px 15px 15px 15px;
   height: 500px;
 
   background: #f5f5f5;
@@ -154,7 +154,22 @@
 }
 
 .container-form-submit {
+  color: #cf3232;
 }
 
 .form-submit-button {
+}
+
+.form-content-wrapper {
+  display: grid;
+  grid-template-columns: 2fr 3fr;
+}
+
+.left-form-wrapper {
+  border: 1px solid;
+}
+
+.right-form-wrapper {
+  border: 1px solid;
+  border-left: 0px solid;
 }

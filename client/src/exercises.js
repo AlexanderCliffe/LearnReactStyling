@@ -1,29 +1,9 @@
 const exerciseArray = [
   {
-    name: "Bench Press",
-    variants: [
-      {
-        variantType: "Style Variant",
-        variantSelection: ["Spoto Press", "VM Press", "Floor Press"]
-      },
-      {
-        variantType: "Speed Variant",
-        variantSelection: ["Paused", "Speed"]
-      }
-    ]
+    name: "Bench Press"
   },
   {
-    name: "Squat",
-    variants: [
-      {
-        variantType: "Style Variant",
-        variantSelection: ["High Bar", "Low Bar"]
-      },
-      {
-        variantType: "Speed Variant",
-        variantSelection: ["Paused", "Speed"]
-      }
-    ]
+    name: "Squat"
   },
   {
     name: "Deadlift"
