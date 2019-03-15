@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import Login from "./components/Login";
 //import Navbar from "./components/Navbar";
-//import MainPage from "./components/MainPage/MainPage";
-import datepicker from "./components/datePicker/datePicker";
+import MainPage from "./components/MainPage/MainPage";
+//import datepicker from "./components/datePicker/datePicker";
+
 //import Calendar from "./components/Calendar/index";
 //import ExampleBlur from "./components/ExampleBlur/ExampleBlur";
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -41,7 +42,7 @@ class App extends Component {
         <Router>
           <Switch>
             <Route exact path="/login" component={Login} />
-            <Route exact path="/" component={datepicker} />
+            <Route exact path="/" component={MainPage} />
           </Switch>
         </Router>
       </div>

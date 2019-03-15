@@ -39,6 +39,10 @@ export default class MainPage extends Component {
     // this.setState({ exercises: updatedList });
   };
 
+  onNewDate = newDate => {
+    console.log(newDate);
+  };
+
   render() {
     let exerciseNamesList = "list-exerciseName";
     let exerciseNameInput = "input-exerciseName";
@@ -57,8 +61,8 @@ export default class MainPage extends Component {
                 <div className="form-content-wrapper">
                   <div className="left-form-wrapper">
                     <div className="date-wrapper" />
-                    <Datepicker />
-                    <div className="currentDay-log-wrapper">
+                    <Datepicker onNewDate={this.onNewDate} />
+                    {/* <div className="currentDay-log-wrapper">
                       <ul className="currentDay-log-list">
                         {this.state.currentDayLog.map((workout, key) => {
                           return (
@@ -68,7 +72,7 @@ export default class MainPage extends Component {
                           );
                         })}
                       </ul>
-                    </div>
+                    </div> */}
                   </div>
                   <div className="right-form-wrapper">
                     <div>

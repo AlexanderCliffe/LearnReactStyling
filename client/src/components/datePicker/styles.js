@@ -39,7 +39,6 @@ export const DatePickerLabel = styled(Label)`
 
 export const DatePickerInput = styled(Input)`
   position: relative;
-  float: left;
   padding: 1rem 2rem;
   font-weight: 500;
   font-size: 1rem;
@@ -49,7 +48,6 @@ export const DatePickerInput = styled(Input)`
   text-align: center;
   letter-spacing: 1px;
   background: transparent !important;
-  display: flex;
   align-items: center;
   ::placeholder {
     color: #999;

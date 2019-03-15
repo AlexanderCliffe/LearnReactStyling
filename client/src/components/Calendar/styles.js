@@ -35,6 +35,7 @@ export const CalendarContainer = styled.div`
   border: 2px solid #06c;
   border-radius: 5px;
   overflow: hidden;
+  min-width: 280px;
 `;
 
 export const CalendarHeader = styled.div`

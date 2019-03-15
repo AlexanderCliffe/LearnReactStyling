@@ -1,11 +1,13 @@
-import React from "react";
-import PropTypes from "prop-types";
-import Calendar from "../Calendar";
-import * as Styled from "./styles";
+import React, { Component } from "react";
 import { isDate, getDateISO } from "../../helpers/calendar";
+import * as Styled from "../datePicker/styles";
+import Calendar from "../Calendar";
 
-class Datepicker extends React.Component {
-  state = { date: getDateISO(new Date()), calendarOpen: false };
+export default class Child extends Component {
+  state = {
+    date: getDateISO(new Date()),
+    calendarOpen: false
+  };
 
   toggleCalendar = () =>
     this.setState({ calendarOpen: !this.state.calendarOpen });
@@ -21,10 +23,7 @@ class Datepicker extends React.Component {
       this.setState({ date: newDate, calendarOpen: false }, () => {
         typeof onDateChanged === "function" && onDateChanged(this.state.date);
       });
-
-    //sets the onNewDate prop to the newly selected date.
-    //this allows a component to use this component and use the input date however it wills.
-    this.props.onNewDate(newDate);
+    this.props.clack();
   };
 
   componentDidMount() {
@@ -88,11 +87,3 @@ class Datepicker extends React.Component {
     );
   }
 }
-
-Datepicker.propTypes = {
-  label: PropTypes.string,
-  value: PropTypes.string,
-  onDateChanged: PropTypes.func
-};
-
-export default Datepicker;
