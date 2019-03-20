@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import "./css/style.css";
 import TopNav from "./TopNav";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import exerciseArray from "../../exercises";
 import todaylog from "./sampleData";
 import Datepicker from "../datePicker/datePicker";
@@ -60,9 +59,10 @@ export default class MainPage extends Component {
                 <span className="form-title">Add exercise</span>
                 <div className="form-content-wrapper">
                   <div className="left-form-wrapper">
-                    <div className="date-wrapper" />
-                    <Datepicker onNewDate={this.onNewDate} />
-                    {/* <div className="currentDay-log-wrapper">
+                    <div className="date-wrapper">
+                      <label className="label-datePicker">Workout Date:</label>
+                      <Datepicker onNewDate={this.onNewDate} />
+                      {/* <div className="currentDay-log-wrapper">
                       <ul className="currentDay-log-list">
                         {this.state.currentDayLog.map((workout, key) => {
                           return (
@@ -73,6 +73,7 @@ export default class MainPage extends Component {
                         })}
                       </ul>
                     </div> */}
+                    </div>
                   </div>
                   <div className="right-form-wrapper">
                     <div>

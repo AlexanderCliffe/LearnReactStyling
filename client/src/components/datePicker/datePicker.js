@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import Calendar from "../Calendar";
 import * as Styled from "./styles";
 import { isDate, getDateISO } from "../../helpers/calendar";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 class Datepicker extends React.Component {
   state = { date: getDateISO(new Date()), calendarOpen: false };
@@ -49,16 +50,11 @@ class Datepicker extends React.Component {
   }
 
   render() {
-    const { label } = this.props;
     const { date, calendarOpen } = this.state;
     return (
       <Styled.DatePickerContainer>
         {!calendarOpen && (
           <Styled.DatePickerFormGroup>
-            <Styled.DatePickerLabel>
-              {label || "Enter Date"}
-            </Styled.DatePickerLabel>
-
             <Styled.DatePickerInput
               type="text"
               value={this.transformDate(date)}
@@ -66,6 +62,13 @@ class Datepicker extends React.Component {
               readOnly="readonly"
               placeholder="DD / MM / YYYY"
             />
+            <Styled.DatePickerButton>
+              <FontAwesomeIcon
+                className="dateButton"
+                icon="calendar"
+                size="lg"
+              />
+            </Styled.DatePickerButton>
           </Styled.DatePickerFormGroup>
         )}
 
@@ -90,7 +93,6 @@ class Datepicker extends React.Component {
 }
 
 Datepicker.propTypes = {
-  label: PropTypes.string,
   value: PropTypes.string,
   onDateChanged: PropTypes.func
 };

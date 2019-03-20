@@ -172,8 +172,20 @@
   min-width: 300px;
 }
 
+.date-wrapper {
+  padding-top: 1rem;
+  width: 80%;
+  height: 100%;
+  margin: 0 auto;
+}
+
 .right-form-wrapper {
   border: 1px solid;
   border-left: 0px;
   min-width: 300px;
+}
+
+.label-datePicker {
+  padding: 0rem 0rem 10rem 0rem;
+  font-size: 1.3rem;
 }

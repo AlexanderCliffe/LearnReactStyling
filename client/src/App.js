@@ -3,7 +3,7 @@ import Login from "./components/Login";
 //import Navbar from "./components/Navbar";
 import MainPage from "./components/MainPage/MainPage";
 //import datepicker from "./components/datePicker/datePicker";
-
+//import test from "./components/tester/index";
 //import Calendar from "./components/Calendar/index";
 //import ExampleBlur from "./components/ExampleBlur/ExampleBlur";
 import { library } from "@fortawesome/fontawesome-svg-core";

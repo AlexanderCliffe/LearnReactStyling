@@ -5,7 +5,8 @@ import {
   Input,
   Dropdown,
   DropdownToggle,
-  DropdownMenu
+  DropdownMenu,
+  Button
 } from "reactstrap";
 
 export const DatePickerContainer = styled.div`
@@ -14,12 +15,12 @@ export const DatePickerContainer = styled.div`
 
 export const DatePickerFormGroup = styled(FormGroup)`
   display: flex;
-  justify-content: space-between;
   position: relative;
   width: 100%;
   border: 2px solid #06c;
   border-radius: 5px;
   overflow: hidden;
+  text-align: center;
 `;
 
 export const DatePickerLabel = styled(Label)`
@@ -31,10 +32,24 @@ export const DatePickerLabel = styled(Label)`
   text-transform: uppercase;
   color: #06c;
   border-right: 2px solid #06c;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   background: rgba(0, 102, 204, 0.05);
+  flex-grow: 5;
+`;
+
+export const DatePickerButton = styled(Button)`
+  position: relative;
+  margin: 0;
+  padding: 0 2rem;
+  font-weight: 600;
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #06c;
+  border-left: 2px solid #06c;
+  background: rgba(0, 102, 204, 0.05);
+  width: 25%;
+  text-align: center;
+  align-items: center;
 `;
 
 export const DatePickerInput = styled(Input)`
@@ -49,6 +64,7 @@ export const DatePickerInput = styled(Input)`
   letter-spacing: 1px;
   background: transparent !important;
   align-items: center;
+  width: 75%;
   ::placeholder {
     color: #999;
     font-size: 0.9rem;
