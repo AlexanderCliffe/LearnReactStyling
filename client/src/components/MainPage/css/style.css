@@ -105,6 +105,112 @@
   height: 200px;
 }
 
+.currentDay-log-wrapper {
+  height: 13rem;
+  border: 2px solid black;
+  border-radius: 5px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  padding: 1rem 1rem 1rem 1rem;
+  overflow: hidden;
+  /* flex-direction: column; */
+}
+
+.currentDay-log-wrapper-hide {
+  display: none;
+}
+
+.thead-exercises {
+  padding-bottom: 1rem;
+}
+
+.currentDay-log-list {
+  width: 100%;
+}
+
+.currentDay-log-list li {
+  list-style-type: none;
+}
+
+.column-exercise {
+  width: 30%;
+}
+
+.column-sets {
+  width: 15%;
+}
+
+.column-weight {
+  width: 15%;
+}
+
+.column-reps {
+  width: 20%;
+}
+
+.column-edit {
+  width: 10%;
+}
+
+.column-delete {
+  width: 10%;
+}
+
+.icon-edit {
+  color: #81b6da;
+}
+
+.icon-edit:hover {
+  color: #2457c4;
+}
+
+.icon-edit-hide {
+  display: none;
+}
+
+.icon-checked {
+  color: #91d182;
+}
+
+.icon-checked:hover {
+  color: #2df700;
+}
+
+.icon-checked-hide {
+  display: none;
+}
+
+.icon-delete {
+  color: #e67474;
+}
+
+.icon-delete:hover {
+  color: #ee1414;
+}
+
+.exercise-name {
+}
+.exercise-name-edit {
+}
+
+.exercise-sets {
+}
+.exercise-sets-edit {
+}
+
+.exercise-weight {
+}
+.exercise-weight-edit {
+}
+
+.exercise-reps {
+}
+
+.exercise-reps-edit {
+}
+
 .list-exerciseName li {
   display: none;
   text-decoration: none;
@@ -142,6 +248,7 @@
     163,
     163
   ); /* Add a hover effect to all links, except for headers */
+  cursor: pointer;
 }
 
 .icon-exerciseName {
@@ -151,6 +258,10 @@
 }
 
 .icon-active {
+}
+
+.label-exerciseName {
+  font-size: 1.3rem;
 }
 
 .container-form-submit {
@@ -164,7 +275,7 @@
   display: grid;
   grid-template-columns: 2fr 2fr;
   min-width: 600px;
-  height: 400px;
+  height: 500px;
 }
 
 .left-form-wrapper {
@@ -186,6 +297,14 @@
 }
 
 .label-datePicker {
-  padding: 0rem 0rem 10rem 0rem;
   font-size: 1.3rem;
+}
+
+@media only screen and (max-width: 700px) {
+  .form-content-wrapper {
+    display: grid;
+    grid-template-columns: 2fr;
+    min-width: 600px;
+    height: 400px;
+  }
 }

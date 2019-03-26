@@ -8,20 +8,22 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 class Datepicker extends React.Component {
   state = { date: getDateISO(new Date()), calendarOpen: false };
 
-  toggleCalendar = () =>
-    this.setState({ calendarOpen: !this.state.calendarOpen });
-
+  toggleCalendar = async () => {
+    await this.setState({ calendarOpen: !this.state.calendarOpen });
+    this.props.onCalendar(this.state.calendarOpen);
+  };
   handleChange = evt => evt.preventDefault();
 
-  handleDateChange = date => {
+  handleDateChange = async date => {
     const { onDateChanged } = this.props;
     const { date: currentDate } = this.state;
     const newDate = date ? getDateISO(date) : null;
 
     currentDate !== newDate &&
-      this.setState({ date: newDate, calendarOpen: false }, () => {
+      (await this.setState({ date: newDate, calendarOpen: false }, () => {
         typeof onDateChanged === "function" && onDateChanged(this.state.date);
-      });
+      }));
+    this.props.onCalendar(this.state.calendarOpen);
 
     //sets the onNewDate prop to the newly selected date.
     //this allows a component to use this component and use the input date however it wills.

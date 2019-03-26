@@ -17,7 +17,9 @@ import {
   faCubes,
   faWeight,
   faClock,
-  faRedoAlt
+  faRedoAlt,
+  faEdit,
+  faTrash
 } from "@fortawesome/fontawesome-free-solid";
 import { faSquare, faCheckSquare } from "@fortawesome/fontawesome-free-regular";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
@@ -33,7 +35,9 @@ library.add(
   faCubes,
   faWeight,
   faClock,
-  faRedoAlt
+  faRedoAlt,
+  faEdit,
+  faTrash
 );
 class App extends Component {
   render() {
