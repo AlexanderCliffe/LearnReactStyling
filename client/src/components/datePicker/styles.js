@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import { Icon } from "../globalStyles";
+
 import {
   FormGroup,
   Label,
@@ -101,3 +103,5 @@ export const DatePickerDropdownMenu = styled(DropdownMenu)`
   margin: 0;
   transform: none !important;
 `;
+
+export const DateIcon = styled(Icon)``;

@@ -65,11 +65,7 @@ class Datepicker extends React.Component {
               placeholder="DD / MM / YYYY"
             />
             <Styled.DatePickerButton>
-              <FontAwesomeIcon
-                className="dateButton"
-                icon="calendar"
-                size="lg"
-              />
+              <Styled.DateIcon icon="calendar" size="lg" />
             </Styled.DatePickerButton>
           </Styled.DatePickerFormGroup>
         )}

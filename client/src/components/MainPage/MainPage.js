@@ -1,20 +1,19 @@
-import React, { Component } from "react";
-import "./css/style.css";
+import React, { Component, Fragment } from "react";
 import TopNav from "./TopNav";
 import exerciseArray from "../../exerciseData";
 import todaylog from "./sampleData";
 import Datepicker from "../datePicker/datePicker";
 import * as Styled from "./styles";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 export default class MainPage extends Component {
   state = {
     exerciseNameInput: false,
     exercises: exerciseArray,
     updatedExercises: exerciseArray,
     currentDayLog: todaylog,
-    currentDayWrapper: "currentDay-log-wrapper",
+    hideDayLog: false,
     editIcon: "icon-edit",
-    checkedIcon: "icon-checked-hide",
+    editToggle: true,
     exerciseName: "exercise-name",
     exerciseSets: "exercise-sets",
     exerciseWeight: "exercise-weight",
@@ -54,21 +53,14 @@ export default class MainPage extends Component {
 
   onCalendar = calendarActive => {
     if (calendarActive) {
-      this.setState({ currentDayWrapper: "currentDay-log-wrapper-hide" });
+      this.setState({ hideDayLog: true });
     } else {
-      this.setState({ currentDayWrapper: "currentDay-log-wrapper" });
+      this.setState({ hideDayLog: false });
     }
   };
 
   toggleEdit = () => {
-    this.setState({ toggle: !this.state.toggle });
-    if (this.state.checkedIcon === "icon-checked-hide") {
-      this.setState({ editIcon: "icon-edit-hide" });
-      this.setState({ checkedIcon: "icon-checked" });
-    } else {
-      this.setState({ checkedIcon: "icon-checked-hide" });
-      this.setState({ editIcon: "icon-edit" });
-    }
+    this.setState({ editToggle: !this.state.editToggle });
   };
 
   changeInput = (e, key) => {
@@ -81,30 +73,24 @@ export default class MainPage extends Component {
   };
 
   render() {
-    let exerciseNamesList = "list-exerciseName";
-    let exerciseNameInput = "input-exerciseName";
-    exerciseNamesList += "-active";
-    //wrapInputExerciseName += " input-active";
-    exerciseNameInput += " icon-active";
-
     return (
-      <div>
+      <Fragment>
         <TopNav />
-        <div className="page-wrapper">
-          <div className="content-wrapper">
-            <div className="form-wrapper">
-              <form className="form-addExercise">
-                <span className="form-title">Add exercise</span>
-                <div className="form-content-wrapper">
-                  <div className="left-form-wrapper">
-                    <div className="date-wrapper">
-                      <label className="label-datePicker">Workout date:</label>
+        <Styled.PageWrapper>
+          <Styled.ContentWrapper>
+            <Styled.FormWrapper>
+              <Styled.ExerciseForm>
+                <Styled.FormTitle>Add exercise</Styled.FormTitle>
+                <Styled.FormContentWrapper>
+                  <Styled.LeftPanelWrapper>
+                    <Styled.DateWrapper>
+                      <Styled.DateLabel>Workout date:</Styled.DateLabel>
                       <Datepicker
                         onNewDate={this.onNewDate}
                         onCalendar={this.onCalendar}
                       />
-                      <div className={this.state.currentDayWrapper}>
-                        <table className="currentDay-log-list">
+                      <Styled.DayWrapper hide={this.state.hideDayLog}>
+                        <Styled.DayLogTable>
                           <thead>
                             <tr>
                               <th>Exercise</th>
@@ -117,66 +103,52 @@ export default class MainPage extends Component {
                             {this.state.currentDayLog.map((workout, key) => {
                               return (
                                 <tr>
-                                  <td className="column-exercise">
-                                    <input
+                                  <Styled.ExerciseColumn>
+                                    <Styled.ExerciseColumnInput
                                       readOnly={!this.state.toggle}
                                       type="text"
-                                      className={this.state.exerciseName}
                                       value={workout.exercise}
                                       onKeyUp={this.changeInput}
                                     />
-                                  </td>
-                                  <td
-                                    className="column-sets"
-                                    // className={this.state.exerciseSets}
-                                  >
+                                  </Styled.ExerciseColumn>
+
+                                  <Styled.SetsColumn>
                                     {workout.sets}
-                                  </td>
-                                  <td
-                                    className="column-weight"
-                                    // className={this.state.exerciseWeight}
-                                  >
+                                  </Styled.SetsColumn>
+
+                                  <Styled.WeightColumn>
                                     {workout.weight}
-                                  </td>
-                                  <td
-                                    className="column-reps"
-                                    // className={this.state.exerciseReps}
-                                  >
+                                  </Styled.WeightColumn>
+
+                                  <Styled.RepsColumn>
                                     {workout.reps}
-                                  </td>
-                                  <td className="column-edit">
-                                    <FontAwesomeIcon
-                                      icon="edit"
+                                  </Styled.RepsColumn>
+
+                                  <Styled.EditColumn>
+                                    <Styled.ToggleEditIcon
                                       onClick={this.toggleEdit}
-                                      className={this.state.editIcon}
+                                      toggle={this.state.editToggle}
                                     />
-                                    <FontAwesomeIcon
-                                      icon="check-square"
-                                      onClick={this.toggleEdit}
-                                      className={this.state.checkedIcon}
-                                    />
-                                  </td>
-                                  <td className="column-delete">
-                                    <FontAwesomeIcon
-                                      icon="trash"
-                                      className="icon-delete"
-                                    />
-                                  </td>
+                                  </Styled.EditColumn>
+
+                                  <Styled.DeleteColumn>
+                                    <Styled.TrashIcon icon="trash" />
+                                  </Styled.DeleteColumn>
                                 </tr>
                               );
                             })}
                           </tbody>
-                        </table>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="right-form-wrapper">
-                    <div className="date-wrapper">
-                      <label className="label-exerciseName">
+                        </Styled.DayLogTable>
+                      </Styled.DayWrapper>
+                    </Styled.DateWrapper>
+                  </Styled.LeftPanelWrapper>
+
+                  <Styled.RightPanelWrapper>
+                    <Styled.ExerciseWrapper>
+                      <Styled.ExerciseNameLabel>
                         Exercise Name:
-                      </label>
-                      <input
-                        className={exerciseNameInput}
+                      </Styled.ExerciseNameLabel>
+                      <Styled.ExerciseInput
                         name="exerciseNameInput"
                         type="text"
                         placeholder="Type to filter"
@@ -185,23 +157,26 @@ export default class MainPage extends Component {
                         onFocus={this.onFocus}
                         onBlur={this.onBlur}
                       />
-                      <ul className={exerciseNamesList}>
+                      <Styled.ExerciseList>
                         {this.state.updatedExercises.map((exercise, key) => {
                           return (
-                            <li key={key} value={exercise.name}>
+                            <Styled.ExerciseListItem
+                              key={key}
+                              value={exercise.name}
+                            >
                               {exercise.name}
-                            </li>
+                            </Styled.ExerciseListItem>
                           );
                         })}
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
+                      </Styled.ExerciseList>
+                    </Styled.ExerciseWrapper>
+                  </Styled.RightPanelWrapper>
+                </Styled.FormContentWrapper>
+              </Styled.ExerciseForm>
+            </Styled.FormWrapper>
+          </Styled.ContentWrapper>
+        </Styled.PageWrapper>
+      </Fragment>
     );
   }
 }
