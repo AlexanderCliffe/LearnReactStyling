@@ -102,10 +102,6 @@ a:hover {
   height: 500px;
 
   background: #151318;
-  background: -webkit-linear-gradient(to bottom, #28262b, #454546);
-  background: -o-linear-gradient(to bottom, #28262b, #454546);
-  background: -moz-linear-gradient(to bottom, #28262b, #454546);
-  background: linear-gradient(to bottom, #28262b, #454546);
 }
 
 /*------------------------------------------------------------------
@@ -149,6 +145,7 @@ a:hover {
   margin-bottom: 30px;
   margin-top: 30px;
   width: 95%;
+  margin-left: 10px;
 }
 
 .wrap-input-active {
@@ -201,6 +198,7 @@ a:hover {
 
 .wrap-checkbox-label {
   display: flex;
+  margin-left: 15px;
 }
 
 .invisible {
@@ -238,11 +236,11 @@ a:hover {
   cursor: pointer;
   margin-top: 2px;
 }
+
 /* Forgot password div */
 
 .div-forgotPassword {
   text-align: center;
-  padding-top: 7px;
 }
 
 .div-forgotPassword:hover {
