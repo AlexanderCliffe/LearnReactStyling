@@ -63,12 +63,12 @@ export const FormContentWrapper = styled.div`
 `;
 
 export const LeftPanelWrapper = styled.div`
+  padding-top: 1rem;
   border: 1px solid;
   min-width: 300px;
 `;
 
 export const DateWrapper = styled.div`
-  padding-top: 1rem;
   width: 80%;
   height: 100%;
   margin: 0 auto;
@@ -95,31 +95,8 @@ export const DayWrapper = styled.div`
 `;
 
 export const DayLogTable = styled.table`
+  table-layout: fixed;
   width: 100%;
-`;
-
-export const ExerciseColumn = styled.td`
-  width: 30%;
-`;
-
-export const SetsColumn = styled.td`
-  width: 15%;
-`;
-
-export const WeightColumn = styled.td`
-  width: 15%;
-`;
-
-export const RepsColumn = styled.td`
-  width: 20%;
-`;
-
-export const EditColumn = styled.td`
-  width: 10%;
-`;
-
-export const DeleteColumn = styled.td`
-  width: 10%;
 `;
 
 const Icon = ({ icon, className, onClick }) => (
@@ -133,6 +110,34 @@ export const TrashIcon = styled(Icon)`
   :hover {
     color: #ee1414;
   }
+`;
+
+export const ColumnWithoutOverflow = styled.td`
+  overflow: hidden;
+`;
+
+export const ExerciseColumn = styled.div`
+  width: 50%;
+`;
+
+export const SetsColumn = styled.div`
+  width: 10%;
+`;
+
+export const WeightColumn = styled.div`
+  width: 10%;
+`;
+
+export const RepsColumn = styled.div`
+  width: 10%;
+`;
+
+export const EditColumn = styled.div`
+  width: 10%;
+`;
+
+export const DeleteColumn = styled.div`
+  width: 10%;
 `;
 
 export const EditIcon = styled(Icon)`
@@ -179,6 +184,7 @@ export const ExerciseInput = styled.input`
 `;
 
 export const RightPanelWrapper = styled.div`
+  padding-top: 1rem;
   border: 1px solid;
   border-left: 0px;
   min-width: 300px;

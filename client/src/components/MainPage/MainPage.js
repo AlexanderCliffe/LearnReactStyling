@@ -13,7 +13,7 @@ export default class MainPage extends Component {
     currentDayLog: todaylog,
     hideDayLog: false,
     editIcon: "icon-edit",
-    editToggle: true,
+    editToggle: false,
     exerciseName: "exercise-name",
     exerciseSets: "exercise-sets",
     exerciseWeight: "exercise-weight",
@@ -63,14 +63,20 @@ export default class MainPage extends Component {
     this.setState({ editToggle: !this.state.editToggle });
   };
 
-  changeInput = (e, key) => {
-    // const workout = this.state.currentDayLog[key].exercise;
+  deleteRow(index) {
+    this.state.currentDayLog.splice(index, 1);
+    this.setState({
+      currentDayLog: this.state.currentDayLog
+    });
+  }
 
-    // this.setState({ currentDayLog : update(this.state.currentDayLog, {key: {exercise: {$set: 'x'}}}) });
-
-    console.log([e.target.value]);
-    // console.log(e.target.value);
-  };
+  changeInput(e, index) {
+    let currentDayExercises = this.state.currentDayLog;
+    currentDayExercises[index].exercise = e.target.value;
+    this.setState({
+      currentDayLog: currentDayExercises
+    });
+  }
 
   render() {
     return (
@@ -100,40 +106,52 @@ export default class MainPage extends Component {
                             </tr>
                           </thead>
                           <tbody>
-                            {this.state.currentDayLog.map((workout, key) => {
+                            {this.state.currentDayLog.map((workout, index) => {
                               return (
-                                <tr>
-                                  <Styled.ExerciseColumn>
-                                    <Styled.ExerciseColumnInput
-                                      readOnly={!this.state.toggle}
-                                      type="text"
-                                      value={workout.exercise}
-                                      onKeyUp={this.changeInput}
-                                    />
-                                  </Styled.ExerciseColumn>
-
-                                  <Styled.SetsColumn>
-                                    {workout.sets}
-                                  </Styled.SetsColumn>
-
-                                  <Styled.WeightColumn>
-                                    {workout.weight}
-                                  </Styled.WeightColumn>
-
-                                  <Styled.RepsColumn>
-                                    {workout.reps}
-                                  </Styled.RepsColumn>
-
-                                  <Styled.EditColumn>
-                                    <Styled.ToggleEditIcon
-                                      onClick={this.toggleEdit}
-                                      toggle={this.state.editToggle}
-                                    />
-                                  </Styled.EditColumn>
-
-                                  <Styled.DeleteColumn>
-                                    <Styled.TrashIcon icon="trash" />
-                                  </Styled.DeleteColumn>
+                                <tr key={index}>
+                                  <Styled.ColumnWithoutOverflow>
+                                    <Styled.ExerciseColumn>
+                                      <Styled.ExerciseColumnInput
+                                        readOnly={!this.state.editToggle}
+                                        type="text"
+                                        value={workout.exercise}
+                                        onChange={e =>
+                                          this.changeInput(e, index)
+                                        }
+                                      />
+                                    </Styled.ExerciseColumn>
+                                  </Styled.ColumnWithoutOverflow>
+                                  <Styled.ColumnWithoutOverflow>
+                                    <Styled.SetsColumn>
+                                      {workout.sets}
+                                    </Styled.SetsColumn>
+                                  </Styled.ColumnWithoutOverflow>
+                                  <Styled.ColumnWithoutOverflow>
+                                    <Styled.WeightColumn>
+                                      {workout.weight}
+                                    </Styled.WeightColumn>
+                                  </Styled.ColumnWithoutOverflow>
+                                  <Styled.ColumnWithoutOverflow>
+                                    <Styled.RepsColumn>
+                                      {workout.reps}
+                                    </Styled.RepsColumn>
+                                  </Styled.ColumnWithoutOverflow>
+                                  <Styled.ColumnWithoutOverflow>
+                                    <Styled.EditColumn>
+                                      <Styled.ToggleEditIcon
+                                        onClick={this.toggleEdit}
+                                        toggle={!this.state.editToggle}
+                                      />
+                                    </Styled.EditColumn>
+                                  </Styled.ColumnWithoutOverflow>
+                                  <Styled.ColumnWithoutOverflow>
+                                    <Styled.DeleteColumn>
+                                      <Styled.TrashIcon
+                                        icon="trash"
+                                        onClick={e => this.deleteRow(e, index)}
+                                      />
+                                    </Styled.DeleteColumn>
+                                  </Styled.ColumnWithoutOverflow>
                                 </tr>
                               );
                             })}
