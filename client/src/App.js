@@ -21,7 +21,12 @@ import {
   faEdit,
   faTrash
 } from "@fortawesome/fontawesome-free-solid";
-import { faSquare, faCheckSquare } from "@fortawesome/fontawesome-free-regular";
+import {
+  faSquare,
+  faCheckSquare,
+  faCaretSquareUp,
+  faCaretSquareDown
+} from "@fortawesome/fontawesome-free-regular";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 library.add(
   faUnlock,
@@ -37,7 +42,9 @@ library.add(
   faClock,
   faRedoAlt,
   faEdit,
-  faTrash
+  faTrash,
+  faCaretSquareUp,
+  faCaretSquareDown
 );
 class App extends Component {
   render() {

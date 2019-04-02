@@ -99,8 +99,13 @@ export const DayLogTable = styled.table`
   width: 100%;
 `;
 
-const Icon = ({ icon, className, onClick }) => (
-  <FontAwesomeIcon icon={icon} className={className} onClick={onClick} />
+const Icon = ({ icon, className, onClick, name }) => (
+  <FontAwesomeIcon
+    icon={icon}
+    className={className}
+    onClick={onClick}
+    name={name}
+  />
 );
 
 export const TrashIcon = styled(Icon)`
@@ -180,7 +185,12 @@ export const ExerciseInput = styled.input`
   font-size: 16px; /* Increase font-size */
   padding: 12px 20px 12px 40px; /* Add some padding */
   border: 1px solid #ddd; /* Add a grey border */
-  margin-bottom: 12px; /* Add some space below the input */
+  margin-bottom: 4px; /* Add some space below the input */
+  margin-top: 0.8rem;
+
+  :focus {
+    border: 2px solid blue;
+  }
 `;
 
 export const RightPanelWrapper = styled.div`
@@ -190,20 +200,28 @@ export const RightPanelWrapper = styled.div`
   min-width: 300px;
 `;
 
-export const ExerciseWrapper = styled.div``;
+export const ExerciseWrapper = styled.div`
+  width: 80%;
+  height: 100%;
+  margin: 0 auto;
+`;
 
 export const ExerciseNameLabel = styled.label`
   font-size: 1.3rem;
 `;
 
 export const ExerciseList = styled.ul`
-  height: 200px;
-  text-decoration: none;
-  /* width: 18%; */
-  /* overflow: hidden; */
-  /* overflow-y: scroll; */
-  overflow: auto;
-  white-space: nowrap;
+  ${props =>
+    props.show
+      ? `  height: 8.6rem;
+        text-decoration: none;
+        /* width: 18%; */
+        /* overflow: hidden; */
+        /* overflow-y: scroll; */
+        overflow: auto;
+        white-space: nowrap;`
+      : `display: none;
+      `}
 `;
 
 export const ExerciseListItem = styled.li`
@@ -224,6 +242,87 @@ export const ExerciseListItem = styled.li`
     ); /* Add a hover effect to all links, except for headers */
     cursor: pointer;
   }
+`;
+
+export const SetsRepsWrapper = styled.div`
+  margin-top: 2rem;
+  display: flex;
+  justify-content: space-evenly;
+`;
+
+export const SetsInputWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+export const RepsInputWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+export const SetsWrapper = styled.div`
+  display: grid;
+  grid-template-columns: 2fr 2fr;
+`;
+
+export const SetsInput = styled.input`
+  ::-webkit-inner-spin-button,
+  ::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+  }
+  width: 4rem;
+  height: 4rem;
+  text-align: center;
+  border: 1px solid #ddd;
+`;
+
+export const SetsLabel = styled.label`
+  font-size: 1.3rem;
+`;
+
+export const UpDownIcon = styled(Icon)`
+  color: #003d99;
+  font-weight: bold;
+  font-size: 1.4rem;
+
+  :hover {
+    color: #0066ff;
+  }
+`;
+
+export const SpinBoxDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+`;
+
+export const CustomSpinBox = ({ onAdd, onMinus }) => (
+  <SpinBoxDiv>
+    <UpDownIcon icon="caret-square-up" onClick={onAdd} />
+    <UpDownIcon icon="caret-square-down" onClick={onMinus} />
+  </SpinBoxDiv>
+);
+
+export const RepsWrapper = styled.div`
+  display: grid;
+  grid-template-columns: 2fr 2fr;
+`;
+
+export const RepsInput = styled.input`
+  ::-webkit-inner-spin-button,
+  ::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+  }
+  width: 4rem;
+  height: 4rem;
+  text-align: center;
+  border: 1px solid #ddd;
+`;
+
+export const RepsLabel = styled.label`
+  font-size: 1.3rem;
 `;
 
 export const ExerciseColumnInput = styled.input``;
