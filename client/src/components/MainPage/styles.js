@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { Fragment } from "react";
+import React from "react";
 
 export const DayWorkouts = styled.div`
   border: 1rem solid black;
@@ -40,7 +40,7 @@ export const FormWrapper = styled.div`
   width: 1000px;
   border-radius: 12px;
   padding: 15px 15px 15px 15px;
-  height: 800px;
+  height: 1000px;
 
   background: #f5f5f5;
 `;
@@ -59,11 +59,11 @@ export const FormContentWrapper = styled.div`
   display: grid;
   grid-template-columns: 2fr 2fr;
   min-width: 600px;
-  height: 500px;
+  height: 550px;
 `;
 
 export const LeftPanelWrapper = styled.div`
-  padding-top: 1rem;
+  padding-top: 1.5rem;
   border: 1px solid;
   min-width: 300px;
 `;
@@ -95,7 +95,6 @@ export const DayWrapper = styled.div`
 `;
 
 export const DayLogTable = styled.table`
-  table-layout: fixed;
   width: 100%;
 `;
 
@@ -194,7 +193,7 @@ export const ExerciseInput = styled.input`
 `;
 
 export const RightPanelWrapper = styled.div`
-  padding-top: 1rem;
+  padding-top: 1.5rem;
   border: 1px solid;
   border-left: 0px;
   min-width: 300px;
@@ -208,20 +207,6 @@ export const ExerciseWrapper = styled.div`
 
 export const ExerciseNameLabel = styled.label`
   font-size: 1.3rem;
-`;
-
-export const ExerciseList = styled.ul`
-  ${props =>
-    props.show
-      ? `  height: 8.6rem;
-        text-decoration: none;
-        /* width: 18%; */
-        /* overflow: hidden; */
-        /* overflow-y: scroll; */
-        overflow: auto;
-        white-space: nowrap;`
-      : `display: none;
-      `}
 `;
 
 export const ExerciseListItem = styled.li`
@@ -242,6 +227,27 @@ export const ExerciseListItem = styled.li`
     ); /* Add a hover effect to all links, except for headers */
     cursor: pointer;
   }
+`;
+
+export const ExerciseList = styled.ul`
+  ${props =>
+    props.show
+      ? `  
+      position: fixed;
+      height: 11.45rem;
+        text-decoration: none;
+        position:relative;
+        overflow: auto;
+        white-space: nowrap;
+        z-index:5;`
+      : `display: none;
+      `}
+`;
+
+export const testDiv = styled.div`
+  overflow: hidden;
+
+  position: relative;
 `;
 
 export const SetsRepsWrapper = styled.div`
@@ -326,3 +332,66 @@ export const RepsLabel = styled.label`
 `;
 
 export const ExerciseColumnInput = styled.input``;
+
+// Equipment
+
+export const EquipmentWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+`;
+
+export const EquipmentOptionsWrapper = styled.div`
+  padding: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  width: 15rem;
+`;
+
+export const EquipmentOptionLabel = styled.label`
+  font-size: 1.3rem;
+`;
+
+export const Option = styled.div`
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  height: 4rem;
+  width: 4rem;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+
+  :hover {
+    cursor: pointer;
+    background-color: aliceblue;
+  }
+`;
+
+export const SelectedOption = styled(Option)`
+  color: white;
+  background-color: #003d99;
+  :hover {
+    cursor: default;
+    color: white;
+    background-color: #003d99;
+  }
+`;
+
+export const AddExerciseButton = styled.button`
+  font-size: 1.2rem;
+  border: 2px solid black;
+  border-radius: 5px;
+  padding: 1rem 1rem 1rem 1rem;
+
+  color: white;
+  background-color: #003d99;
+  font-weight: bold;
+
+  :hover {
+    color: #003d99;
+    background-color: white;
+  }
+`;

@@ -209,7 +209,7 @@ class Calendar extends Component {
 
   render() {
     return (
-      <div>
+      <Styled.CalendarWrapper>
         <Styled.CalendarContainer>
           {this.renderMonthAndYear()}
 
@@ -223,7 +223,7 @@ class Calendar extends Component {
             </Fragment>
           </Styled.CalendarGrid>
         </Styled.CalendarContainer>
-      </div>
+      </Styled.CalendarWrapper>
     );
   }
 }

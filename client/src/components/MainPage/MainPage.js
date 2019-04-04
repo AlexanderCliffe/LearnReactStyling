@@ -7,23 +7,28 @@ import * as Styled from "./styles";
 
 export default class MainPage extends Component {
   state = {
+    //UI dependancies
     exerciseNameInput: false,
-    exerciseNameValue: "",
     exercises: exerciseArray,
     updatedExercises: exerciseArray,
     currentDayLog: todaylog,
     hideDayLog: false,
-    editIcon: "icon-edit",
     editToggle: false,
-    exerciseName: "exercise-name",
-    exerciseSets: "exercise-sets",
-    exerciseWeight: "exercise-weight",
-    exerciseReps: "exercise-reps",
-    toggle: false,
     showExerciseList: false,
+
+    //Values
+    exerciseNameValue: "",
+    dateValue: "",
     setsValue: 1,
     repsValue: 1,
-    weightValue: 1
+    weightValue: 0,
+    equipmentWeightValue: 0,
+    //0 = none, 1 = bands, 2 = chains
+    selectedEquipment: 0,
+
+    //String Literals
+    //TODO: Move
+    options: ["None", "Bands", "Chains"]
   };
   onFocus = e => {
     this.setState({ [e.target.name]: true });
@@ -44,6 +49,7 @@ export default class MainPage extends Component {
       if (item.name.toLowerCase().includes(filter)) {
         return item;
       }
+      return null;
     });
     this.setState({ updatedExercises: updatedList });
   };
@@ -56,6 +62,7 @@ export default class MainPage extends Component {
         if (item.name.toLowerCase().includes(filter)) {
           return item;
         }
+        return null;
       });
       this.setState({ updatedExercises: updatedList });
     } else {
@@ -64,11 +71,15 @@ export default class MainPage extends Component {
   };
 
   onChangeInputValues = e => {
-    this.setState({ [e.target.name]: e.target.value });
+    if (e.target.value >= 0) {
+      this.setState({ [e.target.name]: e.target.value });
+    } else {
+      this.setState({ [e.target.name]: 0 });
+    }
   };
 
   onNewDate = newDate => {
-    console.log(newDate);
+    this.setState({ dateValue: newDate });
   };
 
   onCalendar = calendarActive => {
@@ -116,6 +127,30 @@ export default class MainPage extends Component {
     if (this.state.repsValue > 1) {
       this.setState({ repsValue: this.state.repsValue - 1 });
     }
+  };
+
+  onClickEquipmentType = e => {
+    if (e.target.name === "optionNone") {
+      this.setState({ selectedEquipment: 0 });
+    } else if (e.target.name === "optionBands") {
+      this.setState({ selectedEquipment: 1 });
+    } else if (e.target.name === "optionChains") {
+      this.setState({ selectedEquipment: 2 });
+    }
+  };
+
+  addExercise = e => {
+    e.preventDefault();
+    console.log(this.state.dateValue);
+    console.log(this.state.exerciseNameValue);
+    console.log(this.state.setsValue);
+    console.log(this.state.repsValue);
+    console.log(this.state.weightValue);
+    console.log(this.state.selectedEquipment);
+  };
+
+  onSelectEquipment = selectedEquipment => {
+    this.setState({ selectedEquipment });
   };
 
   render() {
@@ -217,58 +252,103 @@ export default class MainPage extends Component {
                         value={this.state.exerciseNameValue}
                         onChange={this.onChange}
                       />
-                      <Styled.ExerciseList show={this.state.showExerciseList}>
-                        {this.state.updatedExercises.map((exercise, key) => {
-                          return (
-                            <Styled.ExerciseListItem
-                              key={key}
-                              value={exercise.name}
-                              onMouseDown={this.onClickExerciseName.bind(
-                                this,
-                                exercise.name
-                              )}
-                            >
-                              {/* onMouseDown function is triggered when the mouse button is held down
+                      <Styled.testDiv>
+                        <Styled.ExerciseList show={this.state.showExerciseList}>
+                          {this.state.updatedExercises.map((exercise, key) => {
+                            return (
+                              <Styled.ExerciseListItem
+                                key={key}
+                                value={exercise.name}
+                                onMouseDown={this.onClickExerciseName.bind(
+                                  this,
+                                  exercise.name
+                                )}
+                              >
+                                {/* onMouseDown function is triggered when the mouse button is held down
                       (onMouseUp function is triggered when the mouse button is released)
                       onMouseDown is used instead of onClick because onClick would be executed after
                       the onBlur of the input, meaning that it would never be executed. */}
-                              {exercise.name}
-                            </Styled.ExerciseListItem>
-                          );
-                        })}
-                      </Styled.ExerciseList>
-                      <Styled.SetsRepsWrapper>
-                        <Styled.SetsWrapper>
+                                {exercise.name}
+                              </Styled.ExerciseListItem>
+                            );
+                          })}
+                        </Styled.ExerciseList>
+
+                        <Styled.SetsRepsWrapper>
+                          <Styled.SetsWrapper>
+                            <Styled.SetsInputWrapper>
+                              <Styled.SetsLabel>Sets</Styled.SetsLabel>
+                              <Styled.SetsInput
+                                type="number"
+                                value={this.state.setsValue}
+                                onChange={this.onChangeInputValues}
+                                name="setsValue"
+                              />
+                            </Styled.SetsInputWrapper>
+                            <Styled.CustomSpinBox
+                              onAdd={this.onIncrementSets}
+                              onMinus={this.onDecrementSets}
+                            />
+                          </Styled.SetsWrapper>
+                          <Styled.RepsWrapper>
+                            <Styled.RepsInputWrapper>
+                              <Styled.RepsLabel>Reps</Styled.RepsLabel>
+                              <Styled.RepsInput
+                                type="number"
+                                value={this.state.repsValue}
+                                onChange={this.onChangeInputValues}
+                                name="repsValue"
+                              />
+                            </Styled.RepsInputWrapper>
+                            <Styled.CustomSpinBox
+                              onAdd={this.onIncrementReps}
+                              onMinus={this.onDecrementReps}
+                            />
+                          </Styled.RepsWrapper>
                           <Styled.SetsInputWrapper>
-                            <Styled.SetsLabel>Sets</Styled.SetsLabel>
+                            <Styled.SetsLabel>Weight</Styled.SetsLabel>
                             <Styled.SetsInput
                               type="number"
-                              value={this.state.setsValue}
+                              value={this.state.weightValue}
                               onChange={this.onChangeInputValues}
-                              name="setsValue"
+                              name="weightValue"
                             />
                           </Styled.SetsInputWrapper>
-                          <Styled.CustomSpinBox
-                            onAdd={this.onIncrementSets}
-                            onMinus={this.onDecrementSets}
-                          />
-                        </Styled.SetsWrapper>
-                        <Styled.RepsWrapper>
-                          <Styled.RepsInputWrapper>
-                            <Styled.RepsLabel>Reps</Styled.RepsLabel>
-                            <Styled.RepsInput
-                              type="number"
-                              value={this.state.repsValue}
-                              onChange={this.onChangeInputValues}
-                              name="repsValue"
-                            />
-                          </Styled.RepsInputWrapper>
-                          <Styled.CustomSpinBox
-                            onAdd={this.onIncrementReps}
-                            onMinus={this.onDecrementReps}
-                          />
-                        </Styled.RepsWrapper>
-                      </Styled.SetsRepsWrapper>
+                        </Styled.SetsRepsWrapper>
+                      </Styled.testDiv>
+                      <Styled.EquipmentWrapper>
+                        <Styled.EquipmentOptionLabel>
+                          Extra Equipment
+                        </Styled.EquipmentOptionLabel>
+                        <Styled.EquipmentOptionsWrapper>
+                          {this.state.options.map((option, i) => {
+                            if (i === this.state.selectedEquipment) {
+                              let selectedOption = (
+                                <Styled.SelectedOption key={i}>
+                                  {option}
+                                </Styled.SelectedOption>
+                              );
+                              return selectedOption;
+                            } else {
+                              let option1 = (
+                                <Styled.Option
+                                  key={i}
+                                  name={i}
+                                  onClick={this.onSelectEquipment.bind(this, i)}
+                                  value={i}
+                                >
+                                  {option}
+                                </Styled.Option>
+                              );
+                              return option1;
+                            }
+                          })}
+                        </Styled.EquipmentOptionsWrapper>
+                      </Styled.EquipmentWrapper>
+
+                      <Styled.AddExerciseButton onClick={this.addExercise}>
+                        + Add Exercise
+                      </Styled.AddExerciseButton>
                     </Styled.ExerciseWrapper>
                   </Styled.RightPanelWrapper>
                 </Styled.FormContentWrapper>

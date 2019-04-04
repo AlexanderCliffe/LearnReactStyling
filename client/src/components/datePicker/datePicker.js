@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import Calendar from "../Calendar";
 import * as Styled from "./styles";
 import { isDate, getDateISO } from "../../helpers/calendar";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 class Datepicker extends React.Component {
   state = { date: getDateISO(new Date()), calendarOpen: false };
@@ -35,6 +34,8 @@ class Datepicker extends React.Component {
     const newDate = date && new Date(date);
 
     isDate(newDate) && this.setState({ date: getDateISO(newDate) });
+    //set the onNewDate prop to the starting date (today's date)
+    this.props.onNewDate(this.state.date);
   }
 
   componentDidUpdate(prevProps) {
