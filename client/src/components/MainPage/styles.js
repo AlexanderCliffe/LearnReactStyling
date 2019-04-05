@@ -95,6 +95,7 @@ export const DayWrapper = styled.div`
 `;
 
 export const DayLogTable = styled.table`
+  table-layout: fixed;
   width: 100%;
 `;
 
@@ -120,27 +121,39 @@ export const ColumnWithoutOverflow = styled.td`
   overflow: hidden;
 `;
 
-export const ExerciseColumn = styled.div`
+export const ExerciseColumn = styled.td`
   width: 50%;
 `;
 
-export const SetsColumn = styled.div`
+export const ExerciseHeader = styled.th`
+  width: 50%;
+`;
+
+export const EditHeader = styled.th`
+  width: 5%;
+`;
+
+export const DeleteHeader = styled.th`
+  width: 5%;
+`;
+
+export const SetsColumn = styled.td`
   width: 10%;
 `;
 
-export const WeightColumn = styled.div`
+export const WeightColumn = styled.td`
   width: 10%;
 `;
 
-export const RepsColumn = styled.div`
+export const RepsColumn = styled.td`
   width: 10%;
 `;
 
-export const EditColumn = styled.div`
+export const EditColumn = styled.td`
   width: 10%;
 `;
 
-export const DeleteColumn = styled.div`
+export const DeleteColumn = styled.td`
   width: 10%;
 `;
 
@@ -176,21 +189,6 @@ export const ToggleEditIcon = ({ onClick, toggle }) => (
     <CheckedIcon icon="check-square" toggle={toggle} />
   </div>
 );
-
-export const ExerciseInput = styled.input`
-  background-position: 10px 12px; /* Position the search icon */
-  background-repeat: no-repeat; /* Do not repeat the icon image */
-  width: 100%; /* Full-width */
-  font-size: 16px; /* Increase font-size */
-  padding: 12px 20px 12px 40px; /* Add some padding */
-  border: 1px solid #ddd; /* Add a grey border */
-  margin-bottom: 4px; /* Add some space below the input */
-  margin-top: 0.8rem;
-
-  :focus {
-    border: 2px solid blue;
-  }
-`;
 
 export const RightPanelWrapper = styled.div`
   padding-top: 1.5rem;
@@ -229,28 +227,42 @@ export const ExerciseListItem = styled.li`
   }
 `;
 
+export const ExerciseNameInput = styled.input`
+  background-position: 10px 12px; /* Position the search icon */
+  width: 100%; /* Full-width */
+  font-size: 16px; /* Increase font-size */
+  padding: 12px 20px 12px 40px; /* Add some padding */
+  border: 1.5px solid #ddd; /* Add a grey border */
+  margin-bottom: 4px; /* Add some space below the input */
+  margin-top: 0.8rem;
+
+  :focus {
+    border: 1.5px solid blue;
+  }
+`;
+
 export const ExerciseList = styled.ul`
   ${props =>
     props.show
       ? `  
-      position: fixed;
+      position: absolute;
+      
       height: 11.45rem;
-        text-decoration: none;
-        position:relative;
         overflow: auto;
-        white-space: nowrap;
-        z-index:5;`
-      : `display: none;
+        z-index:5;
+        width: 100%; /* Full-width */
+        `
+      : `
+      display: none;
       `}
 `;
 
-export const testDiv = styled.div`
-  overflow: hidden;
-
+export const ExerciseNameWrapper = styled.div`
   position: relative;
 `;
 
 export const SetsRepsWrapper = styled.div`
+  margin-left: 1.4rem;
   margin-top: 2rem;
   display: flex;
   justify-content: space-evenly;
@@ -309,6 +321,49 @@ export const CustomSpinBox = ({ onAdd, onMinus }) => (
     <UpDownIcon icon="caret-square-up" onClick={onAdd} />
     <UpDownIcon icon="caret-square-down" onClick={onMinus} />
   </SpinBoxDiv>
+);
+
+const WeightUnitPickerWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+`;
+
+const WeightUnit = styled.div`
+  color: #003d99;
+  font-weight: bold;
+  font-size: 1.4rem;
+  cursor: pointer;
+  :hover {
+    color: #0066ff;
+  }
+  ${props =>
+    props.selectedWeightUnit
+      ? `  
+      color: #0066ff;
+      cursor: default;
+        `
+      : `
+      color: #003d99;
+      `}
+`;
+export const WeightUnitPicker = ({ selectedWeightUnit, toggleWeightUnit }) => (
+  <WeightUnitPickerWrapper>
+    <WeightUnit
+      selectedWeightUnit={selectedWeightUnit}
+      onClick={toggleWeightUnit}
+    >
+      kg
+    </WeightUnit>
+    <WeightUnit
+      selectedWeightUnit={!selectedWeightUnit}
+      onClick={toggleWeightUnit}
+    >
+      lbs
+    </WeightUnit>
+  </WeightUnitPickerWrapper>
 );
 
 export const RepsWrapper = styled.div`

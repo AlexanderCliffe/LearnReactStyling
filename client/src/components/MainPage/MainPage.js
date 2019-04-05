@@ -25,6 +25,8 @@ export default class MainPage extends Component {
     equipmentWeightValue: 0,
     //0 = none, 1 = bands, 2 = chains
     selectedEquipment: 0,
+    //true = kg, false = lbs
+    weightUnit: true,
 
     //String Literals
     //TODO: Move
@@ -33,7 +35,13 @@ export default class MainPage extends Component {
   onFocus = e => {
     this.setState({ [e.target.name]: true });
     this.setState({ showExerciseList: true });
+    this.selectAllText(e);
   };
+
+  selectAllText = e => {
+    e.target.select();
+  };
+
   onBlur = e => {
     this.setState({ [e.target.name]: false });
     this.setState({ showExerciseList: false });
@@ -72,7 +80,7 @@ export default class MainPage extends Component {
 
   onChangeInputValues = e => {
     if (e.target.value >= 0) {
-      this.setState({ [e.target.name]: e.target.value });
+      this.setState({ [e.target.name]: parseInt(e.target.value) });
     } else {
       this.setState({ [e.target.name]: 0 });
     }
@@ -110,22 +118,22 @@ export default class MainPage extends Component {
   }
 
   onIncrementSets = () => {
-    this.setState({ setsValue: this.state.setsValue + 1 });
+    this.setState({ setsValue: parseInt(this.state.setsValue) + 1 });
   };
 
   onDecrementSets = () => {
     if (this.state.setsValue > 1) {
-      this.setState({ setsValue: this.state.setsValue - 1 });
+      this.setState({ setsValue: parseInt(this.state.setsValue) - 1 });
     }
   };
 
   onIncrementReps = () => {
-    this.setState({ repsValue: this.state.repsValue + 1 });
+    this.setState({ repsValue: parseInt(this.state.repsValue) + 1 });
   };
 
   onDecrementReps = () => {
     if (this.state.repsValue > 1) {
-      this.setState({ repsValue: this.state.repsValue - 1 });
+      this.setState({ repsValue: parseInt(this.state.repsValue) - 1 });
     }
   };
 
@@ -146,11 +154,16 @@ export default class MainPage extends Component {
     console.log(this.state.setsValue);
     console.log(this.state.repsValue);
     console.log(this.state.weightValue);
+    console.log(this.state.weightUnit);
     console.log(this.state.selectedEquipment);
   };
 
   onSelectEquipment = selectedEquipment => {
     this.setState({ selectedEquipment });
+  };
+
+  toggleWeightUnit = () => {
+    this.setState({ weightUnit: !this.state.weightUnit });
   };
 
   render() {
@@ -165,7 +178,7 @@ export default class MainPage extends Component {
                 <Styled.FormContentWrapper>
                   <Styled.LeftPanelWrapper>
                     <Styled.DateWrapper>
-                      <Styled.DateLabel>Workout date:</Styled.DateLabel>
+                      <Styled.DateLabel>Workout date</Styled.DateLabel>
                       <Datepicker
                         onNewDate={this.onNewDate}
                         onCalendar={this.onCalendar}
@@ -174,59 +187,54 @@ export default class MainPage extends Component {
                         <Styled.DayLogTable>
                           <thead>
                             <tr>
-                              <th>Exercise</th>
+                              <Styled.ExerciseHeader>
+                                Exercise
+                              </Styled.ExerciseHeader>
                               <th>Sets</th>
                               <th>Weight</th>
                               <th>Reps</th>
+                              <Styled.EditHeader />
+                              <Styled.DeleteHeader />
                             </tr>
                           </thead>
                           <tbody>
                             {this.state.currentDayLog.map((workout, index) => {
                               return (
                                 <tr key={index}>
-                                  <Styled.ColumnWithoutOverflow>
-                                    <Styled.ExerciseColumn>
-                                      <Styled.ExerciseColumnInput
-                                        readOnly={!this.state.editToggle}
-                                        type="text"
-                                        value={workout.exercise}
-                                        onChange={e =>
-                                          this.changeInput(e, index)
-                                        }
-                                      />
-                                    </Styled.ExerciseColumn>
-                                  </Styled.ColumnWithoutOverflow>
-                                  <Styled.ColumnWithoutOverflow>
-                                    <Styled.SetsColumn>
-                                      {workout.sets}
-                                    </Styled.SetsColumn>
-                                  </Styled.ColumnWithoutOverflow>
-                                  <Styled.ColumnWithoutOverflow>
-                                    <Styled.WeightColumn>
-                                      {workout.weight}
-                                    </Styled.WeightColumn>
-                                  </Styled.ColumnWithoutOverflow>
-                                  <Styled.ColumnWithoutOverflow>
-                                    <Styled.RepsColumn>
-                                      {workout.reps}
-                                    </Styled.RepsColumn>
-                                  </Styled.ColumnWithoutOverflow>
-                                  <Styled.ColumnWithoutOverflow>
-                                    <Styled.EditColumn>
-                                      <Styled.ToggleEditIcon
-                                        onClick={this.toggleEdit}
-                                        toggle={!this.state.editToggle}
-                                      />
-                                    </Styled.EditColumn>
-                                  </Styled.ColumnWithoutOverflow>
-                                  <Styled.ColumnWithoutOverflow>
-                                    <Styled.DeleteColumn>
-                                      <Styled.TrashIcon
-                                        icon="trash"
-                                        onClick={e => this.deleteRow(e, index)}
-                                      />
-                                    </Styled.DeleteColumn>
-                                  </Styled.ColumnWithoutOverflow>
+                                  <td>
+                                    <Styled.ExerciseColumnInput
+                                      readOnly={!this.state.editToggle}
+                                      type="text"
+                                      value={workout.exercise}
+                                      onChange={e => this.changeInput(e, index)}
+                                    />
+                                  </td>
+
+                                  <Styled.SetsColumn>
+                                    {workout.sets}
+                                  </Styled.SetsColumn>
+
+                                  <Styled.WeightColumn>
+                                    {workout.weight}
+                                  </Styled.WeightColumn>
+
+                                  <Styled.RepsColumn>
+                                    {workout.reps}
+                                  </Styled.RepsColumn>
+
+                                  <Styled.EditColumn>
+                                    <Styled.ToggleEditIcon
+                                      onClick={this.toggleEdit}
+                                      toggle={!this.state.editToggle}
+                                    />
+                                  </Styled.EditColumn>
+
+                                  <Styled.DeleteColumn>
+                                    <Styled.TrashIcon
+                                      icon="trash"
+                                      onClick={e => this.deleteRow(e, index)}
+                                    />
+                                  </Styled.DeleteColumn>
                                 </tr>
                               );
                             })}
@@ -239,20 +247,21 @@ export default class MainPage extends Component {
                   <Styled.RightPanelWrapper>
                     <Styled.ExerciseWrapper>
                       <Styled.ExerciseNameLabel>
-                        Exercise Name:
+                        Exercise Name
                       </Styled.ExerciseNameLabel>
-                      <Styled.ExerciseInput
-                        name="exerciseNameInput"
-                        type="text"
-                        placeholder="Type to filter"
-                        //onKeyUp={this.filterExercises}
-                        autoComplete="off"
-                        onFocus={this.onFocus}
-                        onBlur={this.onBlur}
-                        value={this.state.exerciseNameValue}
-                        onChange={this.onChange}
-                      />
-                      <Styled.testDiv>
+                      <Styled.ExerciseNameWrapper>
+                        <Styled.ExerciseNameInput
+                          name="exerciseNameInput"
+                          type="text"
+                          placeholder="Type to filter"
+                          //onKeyUp={this.filterExercises}
+                          autoComplete="off"
+                          onFocus={this.onFocus}
+                          onBlur={this.onBlur}
+                          value={this.state.exerciseNameValue}
+                          onChange={this.onChange}
+                        />
+
                         <Styled.ExerciseList show={this.state.showExerciseList}>
                           {this.state.updatedExercises.map((exercise, key) => {
                             return (
@@ -273,38 +282,42 @@ export default class MainPage extends Component {
                             );
                           })}
                         </Styled.ExerciseList>
+                      </Styled.ExerciseNameWrapper>
+                      <Styled.SetsRepsWrapper>
+                        <Styled.SetsWrapper>
+                          <Styled.SetsInputWrapper>
+                            <Styled.SetsLabel>Sets</Styled.SetsLabel>
+                            <Styled.SetsInput
+                              type="number"
+                              value={this.state.setsValue}
+                              onChange={this.onChangeInputValues}
+                              name="setsValue"
+                              onFocus={this.selectAllText}
+                            />
+                          </Styled.SetsInputWrapper>
+                          <Styled.CustomSpinBox
+                            onAdd={this.onIncrementSets}
+                            onMinus={this.onDecrementSets}
+                          />
+                        </Styled.SetsWrapper>
+                        <Styled.RepsWrapper>
+                          <Styled.RepsInputWrapper>
+                            <Styled.RepsLabel>Reps</Styled.RepsLabel>
+                            <Styled.RepsInput
+                              type="number"
+                              value={this.state.repsValue}
+                              onChange={this.onChangeInputValues}
+                              name="repsValue"
+                              onFocus={this.selectAllText}
+                            />
+                          </Styled.RepsInputWrapper>
+                          <Styled.CustomSpinBox
+                            onAdd={this.onIncrementReps}
+                            onMinus={this.onDecrementReps}
+                          />
+                        </Styled.RepsWrapper>
 
-                        <Styled.SetsRepsWrapper>
-                          <Styled.SetsWrapper>
-                            <Styled.SetsInputWrapper>
-                              <Styled.SetsLabel>Sets</Styled.SetsLabel>
-                              <Styled.SetsInput
-                                type="number"
-                                value={this.state.setsValue}
-                                onChange={this.onChangeInputValues}
-                                name="setsValue"
-                              />
-                            </Styled.SetsInputWrapper>
-                            <Styled.CustomSpinBox
-                              onAdd={this.onIncrementSets}
-                              onMinus={this.onDecrementSets}
-                            />
-                          </Styled.SetsWrapper>
-                          <Styled.RepsWrapper>
-                            <Styled.RepsInputWrapper>
-                              <Styled.RepsLabel>Reps</Styled.RepsLabel>
-                              <Styled.RepsInput
-                                type="number"
-                                value={this.state.repsValue}
-                                onChange={this.onChangeInputValues}
-                                name="repsValue"
-                              />
-                            </Styled.RepsInputWrapper>
-                            <Styled.CustomSpinBox
-                              onAdd={this.onIncrementReps}
-                              onMinus={this.onDecrementReps}
-                            />
-                          </Styled.RepsWrapper>
+                        <Styled.SetsWrapper>
                           <Styled.SetsInputWrapper>
                             <Styled.SetsLabel>Weight</Styled.SetsLabel>
                             <Styled.SetsInput
@@ -312,10 +325,16 @@ export default class MainPage extends Component {
                               value={this.state.weightValue}
                               onChange={this.onChangeInputValues}
                               name="weightValue"
+                              onFocus={this.selectAllText}
                             />
                           </Styled.SetsInputWrapper>
-                        </Styled.SetsRepsWrapper>
-                      </Styled.testDiv>
+                          <Styled.WeightUnitPicker
+                            selectedWeightUnit={this.state.weightUnit}
+                            toggleWeightUnit={this.toggleWeightUnit}
+                          />
+                        </Styled.SetsWrapper>
+                      </Styled.SetsRepsWrapper>
+
                       <Styled.EquipmentWrapper>
                         <Styled.EquipmentOptionLabel>
                           Extra Equipment
