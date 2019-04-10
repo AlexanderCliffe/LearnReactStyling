@@ -209,21 +209,17 @@ class Calendar extends Component {
 
   render() {
     return (
-      <Styled.CalendarWrapper>
-        <Styled.CalendarContainer>
-          {this.renderMonthAndYear()}
+      <Styled.CalendarContainer>
+        {this.renderMonthAndYear()}
 
-          <Styled.CalendarGrid>
-            <Fragment>
-              {Object.keys(WEEK_DAYS).map(this.renderDayLabel)}
-            </Fragment>
+        <Styled.CalendarGrid>
+          <Fragment>{Object.keys(WEEK_DAYS).map(this.renderDayLabel)}</Fragment>
 
-            <Fragment>
-              {this.getCalendarDates().map(this.renderCalendarDate)}
-            </Fragment>
-          </Styled.CalendarGrid>
-        </Styled.CalendarContainer>
-      </Styled.CalendarWrapper>
+          <Fragment>
+            {this.getCalendarDates().map(this.renderCalendarDate)}
+          </Fragment>
+        </Styled.CalendarGrid>
+      </Styled.CalendarContainer>
     );
   }
 }

@@ -19,7 +19,8 @@ import {
   faClock,
   faRedoAlt,
   faEdit,
-  faTrash
+  faTrash,
+  faExclamationTriangle
 } from "@fortawesome/fontawesome-free-solid";
 import {
   faSquare,
@@ -44,7 +45,8 @@ library.add(
   faEdit,
   faTrash,
   faCaretSquareUp,
-  faCaretSquareDown
+  faCaretSquareDown,
+  faExclamationTriangle
 );
 class App extends Component {
   render() {

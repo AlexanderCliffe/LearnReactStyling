@@ -13,8 +13,7 @@ import {
 
 export const DatePickerContainer = styled.div`
   position: relative;
-  padding-bottom: 2rem;
-  padding-top: 0.5rem;
+  margin-bottom: 2rem;
   border-radius: 5px;
 `;
 

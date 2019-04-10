@@ -19,10 +19,9 @@ export default class MainPage extends Component {
     //Values
     exerciseNameValue: "",
     dateValue: "",
-    setsValue: 1,
-    repsValue: 1,
-    weightValue: 0,
-    equipmentWeightValue: 0,
+    setsValue: "1",
+    repsValue: "1",
+    weightValue: "0",
     //0 = none, 1 = bands, 2 = chains
     selectedEquipment: 0,
     //true = kg, false = lbs
@@ -78,12 +77,32 @@ export default class MainPage extends Component {
     }
   };
 
-  onChangeInputValues = e => {
-    if (e.target.value >= 0) {
-      this.setState({ [e.target.name]: parseInt(e.target.value) });
-    } else {
-      this.setState({ [e.target.name]: 0 });
+  onChangeInputValues = async e => {
+    var numberRegex = RegExp("[0-9]", "g");
+    console.log("setsvalue : " + this.state.setsValue);
+    console.log("e.target.value: " + e.target.value);
+    if (
+      e.target.value === undefined ||
+      e.target.value === null ||
+      e.target.value === ""
+    ) {
+      console.log("s");
+      await this.setState({ [e.target.name]: "1" });
     }
+    if (numberRegex.test(e.target.value)) {
+      if (this.state.setsValue === "0") {
+        if (!e.target.value === "0") {
+          await this.setState({ [e.target.name]: e.target.value.toString() });
+        }
+      } else {
+        await this.setState({ [e.target.name]: e.target.value.toString() });
+      }
+    }
+    // if (e.target.value >= 0) {
+    //   await this.setState({ [e.target.name]: e.target.value.toString() });
+    // } else {
+    //   await this.setState({ [e.target.name]: "0" });
+    // }
   };
 
   onNewDate = newDate => {
@@ -149,13 +168,23 @@ export default class MainPage extends Component {
 
   addExercise = e => {
     e.preventDefault();
-    console.log(this.state.dateValue);
-    console.log(this.state.exerciseNameValue);
-    console.log(this.state.setsValue);
-    console.log(this.state.repsValue);
-    console.log(this.state.weightValue);
-    console.log(this.state.weightUnit);
-    console.log(this.state.selectedEquipment);
+    if (
+      this.state.updatedExercises.includes(this.state.exerciseNameValue) < 0
+    ) {
+    }
+    const addedExercise = {
+      date: this.state.dateValue,
+      exercise: this.state.exerciseNameValue,
+      sets: this.state.setsValue,
+      reps: this.state.repsValue,
+      weight: this.state.weightValue,
+      weightUnit: this.state.weightUnit,
+      selectedEquipment: this.state.selectedEquipment
+    };
+    this.state.currentDayLog.push(addedExercise);
+    this.setState({
+      currentDayLog: this.state.currentDayLog
+    });
   };
 
   onSelectEquipment = selectedEquipment => {
@@ -174,15 +203,17 @@ export default class MainPage extends Component {
           <Styled.ContentWrapper>
             <Styled.FormWrapper>
               <Styled.ExerciseForm>
-                <Styled.FormTitle>Add exercise</Styled.FormTitle>
+                <Styled.FormTitle />
                 <Styled.FormContentWrapper>
                   <Styled.LeftPanelWrapper>
                     <Styled.DateWrapper>
                       <Styled.DateLabel>Workout date</Styled.DateLabel>
-                      <Datepicker
-                        onNewDate={this.onNewDate}
-                        onCalendar={this.onCalendar}
-                      />
+                      <Styled.DatepickerWrapper>
+                        <Datepicker
+                          onNewDate={this.onNewDate}
+                          onCalendar={this.onCalendar}
+                        />
+                      </Styled.DatepickerWrapper>
                       <Styled.DayWrapper hide={this.state.hideDayLog}>
                         <Styled.DayLogTable>
                           <thead>
@@ -253,14 +284,14 @@ export default class MainPage extends Component {
                         <Styled.ExerciseNameInput
                           name="exerciseNameInput"
                           type="text"
-                          placeholder="Type to filter"
-                          //onKeyUp={this.filterExercises}
+                          placeholder="Search for exercises..."
                           autoComplete="off"
                           onFocus={this.onFocus}
                           onBlur={this.onBlur}
                           value={this.state.exerciseNameValue}
                           onChange={this.onChange}
                         />
+                        <Styled.ExerciseNameWarning />
 
                         <Styled.ExerciseList show={this.state.showExerciseList}>
                           {this.state.updatedExercises.map((exercise, key) => {
@@ -283,57 +314,65 @@ export default class MainPage extends Component {
                           })}
                         </Styled.ExerciseList>
                       </Styled.ExerciseNameWrapper>
-                      <Styled.SetsRepsWrapper>
-                        <Styled.SetsWrapper>
-                          <Styled.SetsInputWrapper>
-                            <Styled.SetsLabel>Sets</Styled.SetsLabel>
-                            <Styled.SetsInput
+
+                      <Styled.WorkoutMetricsWrapper>
+                        <Styled.WorkoutMetricWrapper>
+                          <Styled.WorkoutMetricInfoWrapper>
+                            <Styled.WorkoutMetricLabel>
+                              Sets
+                            </Styled.WorkoutMetricLabel>
+                            <Styled.WorkoutMetricInput
                               type="number"
-                              value={this.state.setsValue}
+                              value={this.state.setsValue.toString()}
                               onChange={this.onChangeInputValues}
                               name="setsValue"
                               onFocus={this.selectAllText}
                             />
-                          </Styled.SetsInputWrapper>
+                          </Styled.WorkoutMetricInfoWrapper>
                           <Styled.CustomSpinBox
                             onAdd={this.onIncrementSets}
                             onMinus={this.onDecrementSets}
                           />
-                        </Styled.SetsWrapper>
-                        <Styled.RepsWrapper>
-                          <Styled.RepsInputWrapper>
-                            <Styled.RepsLabel>Reps</Styled.RepsLabel>
-                            <Styled.RepsInput
+                        </Styled.WorkoutMetricWrapper>
+
+                        <Styled.WorkoutMetricWrapper>
+                          <Styled.WorkoutMetricInfoWrapper>
+                            <Styled.WorkoutMetricLabel>
+                              Reps
+                            </Styled.WorkoutMetricLabel>
+                            <Styled.WorkoutMetricInput
                               type="number"
-                              value={this.state.repsValue}
+                              value={this.state.repsValue.toString()}
                               onChange={this.onChangeInputValues}
                               name="repsValue"
                               onFocus={this.selectAllText}
                             />
-                          </Styled.RepsInputWrapper>
+                          </Styled.WorkoutMetricInfoWrapper>
                           <Styled.CustomSpinBox
                             onAdd={this.onIncrementReps}
                             onMinus={this.onDecrementReps}
                           />
-                        </Styled.RepsWrapper>
+                        </Styled.WorkoutMetricWrapper>
 
-                        <Styled.SetsWrapper>
-                          <Styled.SetsInputWrapper>
-                            <Styled.SetsLabel>Weight</Styled.SetsLabel>
-                            <Styled.SetsInput
+                        <Styled.WorkoutMetricWrapper>
+                          <Styled.WorkoutMetricInfoWrapper>
+                            <Styled.WorkoutMetricLabel>
+                              Weight
+                            </Styled.WorkoutMetricLabel>
+                            <Styled.WorkoutMetricInput
                               type="number"
-                              value={this.state.weightValue}
+                              value={this.state.weightValue.toString()}
                               onChange={this.onChangeInputValues}
                               name="weightValue"
                               onFocus={this.selectAllText}
                             />
-                          </Styled.SetsInputWrapper>
+                          </Styled.WorkoutMetricInfoWrapper>
                           <Styled.WeightUnitPicker
                             selectedWeightUnit={this.state.weightUnit}
                             toggleWeightUnit={this.toggleWeightUnit}
                           />
-                        </Styled.SetsWrapper>
-                      </Styled.SetsRepsWrapper>
+                        </Styled.WorkoutMetricWrapper>
+                      </Styled.WorkoutMetricsWrapper>
 
                       <Styled.EquipmentWrapper>
                         <Styled.EquipmentOptionLabel>
@@ -349,7 +388,7 @@ export default class MainPage extends Component {
                               );
                               return selectedOption;
                             } else {
-                              let option1 = (
+                              let unselectedOption = (
                                 <Styled.Option
                                   key={i}
                                   name={i}
@@ -359,7 +398,7 @@ export default class MainPage extends Component {
                                   {option}
                                 </Styled.Option>
                               );
-                              return option1;
+                              return unselectedOption;
                             }
                           })}
                         </Styled.EquipmentOptionsWrapper>

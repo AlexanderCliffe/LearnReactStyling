@@ -68,6 +68,10 @@ export const LeftPanelWrapper = styled.div`
   min-width: 300px;
 `;
 
+export const DatepickerWrapper = styled.div`
+  padding-top: 0.5rem;
+`;
+
 export const DateWrapper = styled.div`
   width: 80%;
   height: 100%;
@@ -136,6 +140,8 @@ export const EditHeader = styled.th`
 export const DeleteHeader = styled.th`
   width: 5%;
 `;
+
+export const ExerciseColumnInput = styled.input``;
 
 export const SetsColumn = styled.td`
   width: 10%;
@@ -241,6 +247,29 @@ export const ExerciseNameInput = styled.input`
   }
 `;
 
+const InputWarningMessage = styled.div``;
+
+const WarningIcon = styled(Icon)`
+  color: darkorange;
+`;
+
+const WarningIconMessageWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid darkorange;
+  background-color: #ffdab3;
+  color: darkorange;
+`;
+
+export const ExerciseNameWarning = ({ onClick, toggle }) => (
+  <WarningIconMessageWrapper>
+    <InputWarningMessage>
+      Please choose an exercise in the list
+    </InputWarningMessage>
+  </WarningIconMessageWrapper>
+);
+
 export const ExerciseList = styled.ul`
   ${props =>
     props.show
@@ -261,29 +290,28 @@ export const ExerciseNameWrapper = styled.div`
   position: relative;
 `;
 
-export const SetsRepsWrapper = styled.div`
+export const WorkoutMetricsWrapper = styled.div`
   margin-left: 1.4rem;
   margin-top: 2rem;
   display: flex;
   justify-content: space-evenly;
 `;
 
-export const SetsInputWrapper = styled.div`
+export const WorkoutMetricInfoWrapper = styled.div`
   display: flex;
   flex-direction: column;
 `;
 
-export const RepsInputWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-export const SetsWrapper = styled.div`
+export const WorkoutMetricWrapper = styled.div`
   display: grid;
   grid-template-columns: 2fr 2fr;
 `;
 
-export const SetsInput = styled.input`
+export const WorkoutMetricLabel = styled.label`
+  font-size: 1.3rem;
+`;
+
+export const WorkoutMetricInput = styled.input`
   ::-webkit-inner-spin-button,
   ::-webkit-outer-spin-button {
     -webkit-appearance: none;
@@ -291,11 +319,11 @@ export const SetsInput = styled.input`
   width: 4rem;
   height: 4rem;
   text-align: center;
-  border: 1px solid #ddd;
-`;
+  border: 1.5px solid #ddd; /* Add a grey border */
 
-export const SetsLabel = styled.label`
-  font-size: 1.3rem;
+  :focus {
+    border: 1.5px solid blue;
+  }
 `;
 
 export const UpDownIcon = styled(Icon)`
@@ -365,28 +393,6 @@ export const WeightUnitPicker = ({ selectedWeightUnit, toggleWeightUnit }) => (
     </WeightUnit>
   </WeightUnitPickerWrapper>
 );
-
-export const RepsWrapper = styled.div`
-  display: grid;
-  grid-template-columns: 2fr 2fr;
-`;
-
-export const RepsInput = styled.input`
-  ::-webkit-inner-spin-button,
-  ::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-  }
-  width: 4rem;
-  height: 4rem;
-  text-align: center;
-  border: 1px solid #ddd;
-`;
-
-export const RepsLabel = styled.label`
-  font-size: 1.3rem;
-`;
-
-export const ExerciseColumnInput = styled.input``;
 
 // Equipment
 

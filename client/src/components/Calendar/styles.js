@@ -126,7 +126,3 @@ export const TodayCalendarDate = styled(HighlightedCalendarDate)`
     background: rgba(0, 102, 204, 0.075) !important;
   }
 `;
-
-export const CalendarWrapper = styled.div`
-  padding-top: 0.5rem;
-`;
