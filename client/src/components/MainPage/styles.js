@@ -2,11 +2,14 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 
-export const DayWorkouts = styled.div`
-  border: 1rem solid black;
-  width: 200px;
-  height: 200px;
-`;
+const Icon = ({ icon, className, onClick, name }) => (
+  <FontAwesomeIcon
+    icon={icon}
+    className={className}
+    onClick={onClick}
+    name={name}
+  />
+);
 
 export const PageWrapper = styled.div`
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
@@ -40,7 +43,7 @@ export const FormWrapper = styled.div`
   width: 1000px;
   border-radius: 12px;
   padding: 15px 15px 15px 15px;
-  height: 1000px;
+  height: 900px;
 
   background: #f5f5f5;
 `;
@@ -59,58 +62,83 @@ export const FormContentWrapper = styled.div`
   display: grid;
   grid-template-columns: 2fr 2fr;
   min-width: 600px;
-  height: 550px;
+  height: 200px;
+  max-height: 600px;
 `;
 
 export const LeftPanelWrapper = styled.div`
-  padding-top: 1.5rem;
   border: 1px solid;
   min-width: 300px;
+  width: 100%;
+  height: 100%;
+  padding: 2rem;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 export const DatepickerWrapper = styled.div`
   padding-top: 0.5rem;
-`;
-
-export const DateWrapper = styled.div`
-  width: 80%;
-  height: 100%;
-  margin: 0 auto;
+  width: 100%;
 `;
 
 export const DateLabel = styled.label`
   font-size: 1.3rem;
 `;
 
+// export const ExerciseList = styled.ul`
+//   ${props =>
+//     props.show
+//       ? `
+//       position: absolute;
+
+//       height: 11.45rem;
+//         overflow: auto;
+//         z-index:5;
+//         width: 100%; /* Full-width */
+//         `
+//       : `
+//       display: none;
+//       `}
+// `;
+
 export const DayWrapper = styled.div`
   ${props =>
     props.hide
       ? `display: none;`
-      : `height: 13rem;
+      : `height: 100%;
     border: 2px solid black;
     border-radius: 5px;
-    text-align: center;
     display: flex;
-    justify-content: center;
-    align-content: center;
-    padding: 1rem 1rem 1rem 1rem;
-    overflow: hidden;
+    flex-direction: column;
+    align-items: center;
+    overflow: auto;
+    width: 100%;
   `}
 `;
 
-export const DayLogTable = styled.table`
-  table-layout: fixed;
-  width: 100%;
+export const DayLogExercise = styled.div`
+  width: 80%;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 `;
 
-const Icon = ({ icon, className, onClick, name }) => (
-  <FontAwesomeIcon
-    icon={icon}
-    className={className}
-    onClick={onClick}
-    name={name}
-  />
-);
+export const DayLogExerciseName = styled.div`
+  font-size: 1.15rem;
+  font-weight: bold;
+`;
+
+export const DayLogTable = styled.table`
+  width: 100%;
+  margin-top: 0.5rem;
+`;
+
+export const WeightColumn = styled.div``;
+
+export const RepsColumn = styled.div``;
+
+export const DeleteColumn = styled.div``;
 
 export const TrashIcon = styled(Icon)`
   color: palevioletred;
@@ -121,80 +149,37 @@ export const TrashIcon = styled(Icon)`
   }
 `;
 
-export const ColumnWithoutOverflow = styled.td`
-  overflow: hidden;
-`;
+// export const EditIcon = styled(Icon)`
+//   ${props =>
+//     props.toggle
+//       ? `color: #81b6da;`
+//       : `display: none;
 
-export const ExerciseColumn = styled.td`
-  width: 50%;
-`;
+//       `}
 
-export const ExerciseHeader = styled.th`
-  width: 50%;
-`;
+//   :hover {
+//     color: #2457c4;
+//   }
+// `;
 
-export const EditHeader = styled.th`
-  width: 5%;
-`;
+// export const CheckedIcon = styled(Icon)`
+//   ${props =>
+//     props.toggle
+//       ? `display: none;`
+//       : `color: #91d182;
+//   `}
 
-export const DeleteHeader = styled.th`
-  width: 5%;
-`;
+//   :hover {
+//     color: #2df700;
+//   }
+// `;
 
-export const ExerciseColumnInput = styled.input``;
-
-export const SetsColumn = styled.td`
-  width: 10%;
-`;
-
-export const WeightColumn = styled.td`
-  width: 10%;
-`;
-
-export const RepsColumn = styled.td`
-  width: 10%;
-`;
-
-export const EditColumn = styled.td`
-  width: 10%;
-`;
-
-export const DeleteColumn = styled.td`
-  width: 10%;
-`;
-
-export const EditIcon = styled(Icon)`
-  ${props =>
-    props.toggle
-      ? `color: #81b6da;`
-      : `display: none;
-      
-      
-      `}
-
-  :hover {
-    color: #2457c4;
-  }
-`;
-
-export const CheckedIcon = styled(Icon)`
-  ${props =>
-    props.toggle
-      ? `display: none;`
-      : `color: #91d182;
-  `}
-
-  :hover {
-    color: #2df700;
-  }
-`;
-
-export const ToggleEditIcon = ({ onClick, toggle }) => (
-  <div onClick={onClick}>
-    <EditIcon icon="edit" toggle={toggle} />
-    <CheckedIcon icon="check-square" toggle={toggle} />
-  </div>
-);
+// export const ToggleEditIcon = ({ onClick, toggle }) => (
+//   <div onClick={onClick}>
+//     <EditIcon icon="edit" toggle={toggle} />
+//     <CheckedIcon icon="check-square" toggle={toggle} />
+//   </div>
+// );
 
 export const RightPanelWrapper = styled.div`
   padding-top: 1.5rem;
@@ -249,9 +234,9 @@ export const ExerciseNameInput = styled.input`
 
 const InputWarningMessage = styled.div``;
 
-const WarningIcon = styled(Icon)`
-  color: darkorange;
-`;
+// const WarningIcon = styled(Icon)`
+//   color: darkorange;
+// `;
 
 const WarningIconMessageWrapper = styled.div`
   display: flex;

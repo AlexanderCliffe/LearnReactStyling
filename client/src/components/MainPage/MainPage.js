@@ -13,7 +13,7 @@ export default class MainPage extends Component {
     updatedExercises: exerciseArray,
     currentDayLog: todaylog,
     hideDayLog: false,
-    editToggle: false,
+    // editToggle: false,
     showExerciseList: false,
 
     //Values
@@ -117,9 +117,9 @@ export default class MainPage extends Component {
     }
   };
 
-  toggleEdit = () => {
-    this.setState({ editToggle: !this.state.editToggle });
-  };
+  // toggleEdit = () => {
+  //   this.setState({ editToggle: !this.state.editToggle });
+  // };
 
   deleteRow(index) {
     this.state.currentDayLog.splice(index, 1);
@@ -128,13 +128,13 @@ export default class MainPage extends Component {
     });
   }
 
-  changeInput(e, index) {
-    let currentDayExercises = this.state.currentDayLog;
-    currentDayExercises[index].exercise = e.target.value;
-    this.setState({
-      currentDayLog: currentDayExercises
-    });
-  }
+  // changeInput(e, index) {
+  //   let currentDayExercises = this.state.currentDayLog;
+  //   currentDayExercises[index].exercise = e.target.value;
+  //   this.setState({
+  //     currentDayLog: currentDayExercises
+  //   });
+  // }
 
   onIncrementSets = () => {
     this.setState({ setsValue: parseInt(this.state.setsValue) + 1 });
@@ -206,73 +206,55 @@ export default class MainPage extends Component {
                 <Styled.FormTitle />
                 <Styled.FormContentWrapper>
                   <Styled.LeftPanelWrapper>
-                    <Styled.DateWrapper>
-                      <Styled.DateLabel>Workout date</Styled.DateLabel>
-                      <Styled.DatepickerWrapper>
-                        <Datepicker
-                          onNewDate={this.onNewDate}
-                          onCalendar={this.onCalendar}
-                        />
-                      </Styled.DatepickerWrapper>
-                      <Styled.DayWrapper hide={this.state.hideDayLog}>
-                        <Styled.DayLogTable>
-                          <thead>
-                            <tr>
-                              <Styled.ExerciseHeader>
-                                Exercise
-                              </Styled.ExerciseHeader>
-                              <th>Sets</th>
-                              <th>Weight</th>
-                              <th>Reps</th>
-                              <Styled.EditHeader />
-                              <Styled.DeleteHeader />
-                            </tr>
-                          </thead>
-                          <tbody>
-                            {this.state.currentDayLog.map((workout, index) => {
-                              return (
-                                <tr key={index}>
-                                  <td>
-                                    <Styled.ExerciseColumnInput
-                                      readOnly={!this.state.editToggle}
-                                      type="text"
-                                      value={workout.exercise}
-                                      onChange={e => this.changeInput(e, index)}
-                                    />
-                                  </td>
-
-                                  <Styled.SetsColumn>
-                                    {workout.sets}
-                                  </Styled.SetsColumn>
-
-                                  <Styled.WeightColumn>
-                                    {workout.weight}
-                                  </Styled.WeightColumn>
-
-                                  <Styled.RepsColumn>
-                                    {workout.reps}
-                                  </Styled.RepsColumn>
-
-                                  <Styled.EditColumn>
-                                    <Styled.ToggleEditIcon
-                                      onClick={this.toggleEdit}
-                                      toggle={!this.state.editToggle}
-                                    />
-                                  </Styled.EditColumn>
-
-                                  <Styled.DeleteColumn>
-                                    <Styled.TrashIcon
-                                      icon="trash"
-                                      onClick={e => this.deleteRow(e, index)}
-                                    />
-                                  </Styled.DeleteColumn>
-                                </tr>
-                              );
-                            })}
-                          </tbody>
-                        </Styled.DayLogTable>
-                      </Styled.DayWrapper>
-                    </Styled.DateWrapper>
+                    <Styled.DateLabel>Workout date</Styled.DateLabel>
+                    <Styled.DatepickerWrapper>
+                      <Datepicker
+                        onNewDate={this.onNewDate}
+                        onCalendar={this.onCalendar}
+                      />
+                    </Styled.DatepickerWrapper>
+                    <Styled.DayWrapper hide={this.state.hideDayLog}>
+                      {this.state.currentDayLog.map((exercise, index) => {
+                        return (
+                          <Styled.DayLogExercise key={index}>
+                            <Styled.DayLogExerciseName>
+                              {exercise.name}
+                            </Styled.DayLogExerciseName>
+                            <Styled.DayLogTable>
+                              <tbody>
+                                {exercise.sets.map((set, index) => {
+                                  return (
+                                    <tr key={index}>
+                                      <td>
+                                        <Styled.RepsColumn>
+                                          {set.reps}
+                                        </Styled.RepsColumn>
+                                      </td>
+                                      <td> x </td>
+                                      <td>
+                                        <Styled.WeightColumn>
+                                          {set.weight} {set.unit}
+                                        </Styled.WeightColumn>
+                                      </td>
+                                      <td>
+                                        <Styled.DeleteColumn>
+                                          <Styled.TrashIcon
+                                            icon="trash"
+                                            onClick={e =>
+                                              this.deleteRow(e, index)
+                                            }
+                                          />
+                                        </Styled.DeleteColumn>
+                                      </td>
+                                    </tr>
+                                  );
+                                })}
+                              </tbody>
+                            </Styled.DayLogTable>
+                          </Styled.DayLogExercise>
+                        );
+                      })}
+                    </Styled.DayWrapper>
                   </Styled.LeftPanelWrapper>
 
                   <Styled.RightPanelWrapper>

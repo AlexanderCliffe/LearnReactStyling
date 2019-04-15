@@ -1,27 +1,106 @@
 const todaylog = [
   {
-    exercise: "Bench Press",
-    sets: 1,
-    reps: 5,
-    weight: 80
+    name: "Bench Press",
+    sets: [
+      {
+        reps: 4,
+        weight: 50,
+        unit: "kg",
+        equipped: "none"
+      },
+      {
+        reps: 5,
+        weight: 40,
+        unit: "kg",
+        equipped: "none"
+      },
+      {
+        reps: 5,
+        weight: 40,
+        unit: "kg",
+        equipped: "none"
+      }
+    ]
   },
   {
-    exercise: "Shoulder press",
-    sets: 3,
-    reps: 4,
-    weight: 60
+    name: "Shoulder press",
+    sets: [
+      {
+        reps: 5,
+        weight: 20,
+        unit: "kg",
+        equipped: "none"
+      },
+      {
+        reps: 5,
+        weight: 20,
+        unit: "kg",
+        equipped: "none"
+      }
+    ]
   },
   {
-    exercise: "Squat",
-    sets: 2,
-    reps: 4,
-    weight: 140
+    name: "Shoulder press",
+    sets: [
+      {
+        reps: 5,
+        weight: 20,
+        unit: "kg",
+        equipped: "none"
+      },
+      {
+        reps: 5,
+        weight: 20,
+        unit: "kg",
+        equipped: "none"
+      }
+    ]
   },
   {
-    exercise: "Squat",
-    sets: 3,
-    reps: 8,
-    weight: 100
+    name: "Shoulder press",
+    sets: [
+      {
+        reps: 5,
+        weight: 20,
+        unit: "kg",
+        equipped: "none"
+      },
+      {
+        reps: 5,
+        weight: 20,
+        unit: "kg",
+        equipped: "none"
+      }
+    ]
+  },
+  {
+    name: "Dumbbell single-arm split jerk",
+    sets: [
+      {
+        reps: 5,
+        weight: 20,
+        unit: "kg",
+        equipped: "none"
+      },
+      {
+        reps: 5,
+        weight: 20,
+        unit: "kg",
+        equipped: "none"
+      },
+      {
+        reps: 5,
+        weight: 20,
+        unit: "kg",
+        equipped: "none"
+      },
+      {
+        reps: 5,
+        weight: 20,
+        unit: "kg",
+        equipped: "none"
+      }
+    ]
   }
 ];
 
