@@ -19,10 +19,6 @@ export const PageWrapper = styled.div`
 
 export const ContentWrapper = styled.div`
   width: 100%;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -moz-box;
-  display: -ms-flexbox;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -40,12 +36,17 @@ export const ContentWrapper = styled.div`
 export const FormWrapper = styled.div`
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   position: relative;
+
   width: 1000px;
   border-radius: 12px;
   padding: 15px 15px 15px 15px;
   height: 900px;
 
   background: #f5f5f5;
+
+  @media (max-width: 700px) {
+    height: 1300px;
+  }
 `;
 
 export const ExerciseForm = styled.form`
@@ -59,27 +60,38 @@ export const FormTitle = styled.span`
 `;
 
 export const FormContentWrapper = styled.div`
-  display: grid;
-  grid-template-columns: 2fr 2fr;
-  min-width: 600px;
-  height: 200px;
-  max-height: 600px;
+  display: flex;
+  height: 35rem;
+  width: 100%;
+
+  @media (max-width: 700px) {
+    width: 100%;
+    flex-direction: column;
+    height: 70rem;
+    justify-content: center;
+    align-items: center;
+  }
 `;
 
-export const LeftPanelWrapper = styled.div`
+const PanelWrapper = styled.div`
   border: 1px solid;
-  min-width: 300px;
-  width: 100%;
-  height: 100%;
-  padding: 2rem;
-  margin: 0 auto;
+
+  width: 50%;
+  padding: 1.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  @media (max-width: 700px) {
+    width: 100%;
+    height: 35rem;
+  }
 `;
 
+export const LeftPanelWrapper = styled(PanelWrapper)``;
+
 export const DatepickerWrapper = styled.div`
-  padding-top: 0.5rem;
+  padding-top: 1rem;
   width: 100%;
 `;
 
@@ -87,21 +99,7 @@ export const DateLabel = styled.label`
   font-size: 1.3rem;
 `;
 
-// export const ExerciseList = styled.ul`
-//   ${props =>
-//     props.show
-//       ? `
-//       position: absolute;
-
-//       height: 11.45rem;
-//         overflow: auto;
-//         z-index:5;
-//         width: 100%; /* Full-width */
-//         `
-//       : `
-//       display: none;
-//       `}
-// `;
+export const test = styled.div``;
 
 export const DayWrapper = styled.div`
   ${props =>
@@ -149,49 +147,11 @@ export const TrashIcon = styled(Icon)`
   }
 `;
 
-// export const EditIcon = styled(Icon)`
-//   ${props =>
-//     props.toggle
-//       ? `color: #81b6da;`
-//       : `display: none;
-
-//       `}
-
-//   :hover {
-//     color: #2457c4;
-//   }
-// `;
-
-// export const CheckedIcon = styled(Icon)`
-//   ${props =>
-//     props.toggle
-//       ? `display: none;`
-//       : `color: #91d182;
-//   `}
-
-//   :hover {
-//     color: #2df700;
-//   }
-// `;
-
-// export const ToggleEditIcon = ({ onClick, toggle }) => (
-//   <div onClick={onClick}>
-//     <EditIcon icon="edit" toggle={toggle} />
-//     <CheckedIcon icon="check-square" toggle={toggle} />
-//   </div>
-// );
-
-export const RightPanelWrapper = styled.div`
-  padding-top: 1.5rem;
-  border: 1px solid;
-  border-left: 0px;
-  min-width: 300px;
-`;
-
-export const ExerciseWrapper = styled.div`
-  width: 80%;
-  height: 100%;
-  margin: 0 auto;
+export const RightPanelWrapper = styled(PanelWrapper)`
+  border-left: 0;
+  @media (max-width: 700px) {
+    border-left: 1px solid;
+  }
 `;
 
 export const ExerciseNameLabel = styled.label`
@@ -239,16 +199,19 @@ const InputWarningMessage = styled.div``;
 // `;
 
 const WarningIconMessageWrapper = styled.div`
-  display: flex;
+  ${props =>
+    props.warning
+      ? `  display: flex;
   justify-content: center;
   align-items: center;
   border: 1px solid darkorange;
   background-color: #ffdab3;
-  color: darkorange;
+  color: darkorange;`
+      : `display: none`}
 `;
 
-export const ExerciseNameWarning = ({ onClick, toggle }) => (
-  <WarningIconMessageWrapper>
+export const ExerciseNameWarning = ({ onClick, toggle, warning }) => (
+  <WarningIconMessageWrapper warning={warning}>
     <InputWarningMessage>
       Please choose an exercise in the list
     </InputWarningMessage>
@@ -273,13 +236,14 @@ export const ExerciseList = styled.ul`
 
 export const ExerciseNameWrapper = styled.div`
   position: relative;
+  width: 80%;
 `;
 
 export const WorkoutMetricsWrapper = styled.div`
-  margin-left: 1.4rem;
   margin-top: 2rem;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const WorkoutMetricInfoWrapper = styled.div`
@@ -288,8 +252,8 @@ export const WorkoutMetricInfoWrapper = styled.div`
 `;
 
 export const WorkoutMetricWrapper = styled.div`
-  display: grid;
-  grid-template-columns: 2fr 2fr;
+  display: flex;
+  margin: 0.5rem;
 `;
 
 export const WorkoutMetricLabel = styled.label`
@@ -305,7 +269,8 @@ export const WorkoutMetricInput = styled.input`
   height: 4rem;
   text-align: center;
   border: 1.5px solid #ddd; /* Add a grey border */
-
+  margin-right: 0.5rem;
+  margin-top: 0.2rem;
   :focus {
     border: 1.5px solid blue;
   }
@@ -386,7 +351,7 @@ export const EquipmentWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding-top: 3rem;
+  padding-top: 2.5rem;
   padding-bottom: 3rem;
 `;
 

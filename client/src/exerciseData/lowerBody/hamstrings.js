@@ -1,12 +1,9 @@
 const hamstringsLifts = [
   {
-    name: "Standing calf raise"
+    name: "Lying leg curl machine"
   },
   {
-    name: "Sitting calf raise"
-  },
-  {
-    name: "Leg curl"
+    name: "Sitting leg curl machine"
   }
 ];
 

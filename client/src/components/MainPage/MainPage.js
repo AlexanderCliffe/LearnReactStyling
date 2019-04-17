@@ -13,8 +13,8 @@ export default class MainPage extends Component {
     updatedExercises: exerciseArray,
     currentDayLog: todaylog,
     hideDayLog: false,
-    // editToggle: false,
     showExerciseList: false,
+    warningMessage: false,
 
     //Values
     exerciseNameValue: "",
@@ -77,6 +77,8 @@ export default class MainPage extends Component {
     }
   };
 
+  //TODO
+
   onChangeInputValues = async e => {
     var numberRegex = RegExp("[0-9]", "g");
     console.log("setsvalue : " + this.state.setsValue);
@@ -117,24 +119,16 @@ export default class MainPage extends Component {
     }
   };
 
-  // toggleEdit = () => {
-  //   this.setState({ editToggle: !this.state.editToggle });
-  // };
-
-  deleteRow(index) {
-    this.state.currentDayLog.splice(index, 1);
-    this.setState({
-      currentDayLog: this.state.currentDayLog
-    });
+  deleteRow(e, exercise, setIndex) {
+    for (let i = 0; i < this.state.currentDayLog.length; i++) {
+      if (this.state.currentDayLog[i] === exercise) {
+        this.state.currentDayLog[i].sets.splice(setIndex, 1);
+        this.setState({
+          currentDayLog: this.state.currentDayLog
+        });
+      }
+    }
   }
-
-  // changeInput(e, index) {
-  //   let currentDayExercises = this.state.currentDayLog;
-  //   currentDayExercises[index].exercise = e.target.value;
-  //   this.setState({
-  //     currentDayLog: currentDayExercises
-  //   });
-  // }
 
   onIncrementSets = () => {
     this.setState({ setsValue: parseInt(this.state.setsValue) + 1 });
@@ -171,6 +165,7 @@ export default class MainPage extends Component {
     if (
       this.state.updatedExercises.includes(this.state.exerciseNameValue) < 0
     ) {
+      this.setState({ warningMessage: true });
     }
     const addedExercise = {
       date: this.state.dateValue,
@@ -222,9 +217,9 @@ export default class MainPage extends Component {
                             </Styled.DayLogExerciseName>
                             <Styled.DayLogTable>
                               <tbody>
-                                {exercise.sets.map((set, index) => {
+                                {exercise.sets.map((set, setIndex) => {
                                   return (
-                                    <tr key={index}>
+                                    <tr key={setIndex}>
                                       <td>
                                         <Styled.RepsColumn>
                                           {set.reps}
@@ -241,7 +236,11 @@ export default class MainPage extends Component {
                                           <Styled.TrashIcon
                                             icon="trash"
                                             onClick={e =>
-                                              this.deleteRow(e, index)
+                                              this.deleteRow(
+                                                e,
+                                                exercise,
+                                                setIndex
+                                              )
                                             }
                                           />
                                         </Styled.DeleteColumn>
@@ -258,138 +257,139 @@ export default class MainPage extends Component {
                   </Styled.LeftPanelWrapper>
 
                   <Styled.RightPanelWrapper>
-                    <Styled.ExerciseWrapper>
-                      <Styled.ExerciseNameLabel>
-                        Exercise Name
-                      </Styled.ExerciseNameLabel>
-                      <Styled.ExerciseNameWrapper>
-                        <Styled.ExerciseNameInput
-                          name="exerciseNameInput"
-                          type="text"
-                          placeholder="Search for exercises..."
-                          autoComplete="off"
-                          onFocus={this.onFocus}
-                          onBlur={this.onBlur}
-                          value={this.state.exerciseNameValue}
-                          onChange={this.onChange}
-                        />
-                        <Styled.ExerciseNameWarning />
+                    <Styled.ExerciseNameLabel>
+                      Exercise Name
+                    </Styled.ExerciseNameLabel>
+                    <Styled.ExerciseNameWrapper>
+                      <Styled.ExerciseNameInput
+                        name="exerciseNameInput"
+                        type="text"
+                        placeholder="Search for exercises..."
+                        autoComplete="off"
+                        onFocus={this.onFocus}
+                        onBlur={this.onBlur}
+                        value={this.state.exerciseNameValue}
+                        onChange={this.onChange}
+                      />
+                      <Styled.ExerciseNameWarning
+                        warning={this.state.warningMessage}
+                      />
 
-                        <Styled.ExerciseList show={this.state.showExerciseList}>
-                          {this.state.updatedExercises.map((exercise, key) => {
-                            return (
-                              <Styled.ExerciseListItem
-                                key={key}
-                                value={exercise.name}
-                                onMouseDown={this.onClickExerciseName.bind(
-                                  this,
-                                  exercise.name
-                                )}
-                              >
-                                {/* onMouseDown function is triggered when the mouse button is held down
+                      <Styled.ExerciseList show={this.state.showExerciseList}>
+                        {this.state.updatedExercises.map((exercise, key) => {
+                          return (
+                            <Styled.ExerciseListItem
+                              key={key}
+                              value={exercise.name}
+                              onMouseDown={this.onClickExerciseName.bind(
+                                this,
+                                exercise.name
+                              )}
+                            >
+                              {/* onMouseDown function is triggered when the mouse button is held down
                       (onMouseUp function is triggered when the mouse button is released)
                       onMouseDown is used instead of onClick because onClick would be executed after
                       the onBlur of the input, meaning that it would never be executed. */}
-                                {exercise.name}
-                              </Styled.ExerciseListItem>
+                              {exercise.name}
+                            </Styled.ExerciseListItem>
+                          );
+                        })}
+                      </Styled.ExerciseList>
+                    </Styled.ExerciseNameWrapper>
+
+                    <Styled.WorkoutMetricsWrapper>
+                      <Styled.WorkoutMetricWrapper>
+                        <Styled.WorkoutMetricInfoWrapper>
+                          <Styled.WorkoutMetricLabel>
+                            Sets
+                          </Styled.WorkoutMetricLabel>
+                          <Styled.WorkoutMetricInput
+                            min="1"
+                            type="number"
+                            value={this.state.setsValue.toString()}
+                            onChange={this.onChangeInputValues}
+                            name="setsValue"
+                            onFocus={this.selectAllText}
+                          />
+                        </Styled.WorkoutMetricInfoWrapper>
+                        <Styled.CustomSpinBox
+                          onAdd={this.onIncrementSets}
+                          onMinus={this.onDecrementSets}
+                        />
+                      </Styled.WorkoutMetricWrapper>
+
+                      <Styled.WorkoutMetricWrapper>
+                        <Styled.WorkoutMetricInfoWrapper>
+                          <Styled.WorkoutMetricLabel>
+                            Reps
+                          </Styled.WorkoutMetricLabel>
+                          <Styled.WorkoutMetricInput
+                            type="number"
+                            value={this.state.repsValue.toString()}
+                            onChange={this.onChangeInputValues}
+                            name="repsValue"
+                            onFocus={this.selectAllText}
+                          />
+                        </Styled.WorkoutMetricInfoWrapper>
+                        <Styled.CustomSpinBox
+                          onAdd={this.onIncrementReps}
+                          onMinus={this.onDecrementReps}
+                        />
+                      </Styled.WorkoutMetricWrapper>
+
+                      <Styled.WorkoutMetricWrapper>
+                        <Styled.WorkoutMetricInfoWrapper>
+                          <Styled.WorkoutMetricLabel>
+                            Weight
+                          </Styled.WorkoutMetricLabel>
+                          <Styled.WorkoutMetricInput
+                            type="number"
+                            value={this.state.weightValue.toString()}
+                            onChange={this.onChangeInputValues}
+                            name="weightValue"
+                            onFocus={this.selectAllText}
+                          />
+                        </Styled.WorkoutMetricInfoWrapper>
+                        <Styled.WeightUnitPicker
+                          selectedWeightUnit={this.state.weightUnit}
+                          toggleWeightUnit={this.toggleWeightUnit}
+                        />
+                      </Styled.WorkoutMetricWrapper>
+                    </Styled.WorkoutMetricsWrapper>
+
+                    <Styled.EquipmentWrapper>
+                      <Styled.EquipmentOptionLabel>
+                        Extra Equipment
+                      </Styled.EquipmentOptionLabel>
+                      <Styled.EquipmentOptionsWrapper>
+                        {this.state.options.map((option, i) => {
+                          if (i === this.state.selectedEquipment) {
+                            let selectedOption = (
+                              <Styled.SelectedOption key={i}>
+                                {option}
+                              </Styled.SelectedOption>
                             );
-                          })}
-                        </Styled.ExerciseList>
-                      </Styled.ExerciseNameWrapper>
+                            return selectedOption;
+                          } else {
+                            let unselectedOption = (
+                              <Styled.Option
+                                key={i}
+                                name={i}
+                                onClick={this.onSelectEquipment.bind(this, i)}
+                                value={i}
+                              >
+                                {option}
+                              </Styled.Option>
+                            );
+                            return unselectedOption;
+                          }
+                        })}
+                      </Styled.EquipmentOptionsWrapper>
+                    </Styled.EquipmentWrapper>
 
-                      <Styled.WorkoutMetricsWrapper>
-                        <Styled.WorkoutMetricWrapper>
-                          <Styled.WorkoutMetricInfoWrapper>
-                            <Styled.WorkoutMetricLabel>
-                              Sets
-                            </Styled.WorkoutMetricLabel>
-                            <Styled.WorkoutMetricInput
-                              type="number"
-                              value={this.state.setsValue.toString()}
-                              onChange={this.onChangeInputValues}
-                              name="setsValue"
-                              onFocus={this.selectAllText}
-                            />
-                          </Styled.WorkoutMetricInfoWrapper>
-                          <Styled.CustomSpinBox
-                            onAdd={this.onIncrementSets}
-                            onMinus={this.onDecrementSets}
-                          />
-                        </Styled.WorkoutMetricWrapper>
-
-                        <Styled.WorkoutMetricWrapper>
-                          <Styled.WorkoutMetricInfoWrapper>
-                            <Styled.WorkoutMetricLabel>
-                              Reps
-                            </Styled.WorkoutMetricLabel>
-                            <Styled.WorkoutMetricInput
-                              type="number"
-                              value={this.state.repsValue.toString()}
-                              onChange={this.onChangeInputValues}
-                              name="repsValue"
-                              onFocus={this.selectAllText}
-                            />
-                          </Styled.WorkoutMetricInfoWrapper>
-                          <Styled.CustomSpinBox
-                            onAdd={this.onIncrementReps}
-                            onMinus={this.onDecrementReps}
-                          />
-                        </Styled.WorkoutMetricWrapper>
-
-                        <Styled.WorkoutMetricWrapper>
-                          <Styled.WorkoutMetricInfoWrapper>
-                            <Styled.WorkoutMetricLabel>
-                              Weight
-                            </Styled.WorkoutMetricLabel>
-                            <Styled.WorkoutMetricInput
-                              type="number"
-                              value={this.state.weightValue.toString()}
-                              onChange={this.onChangeInputValues}
-                              name="weightValue"
-                              onFocus={this.selectAllText}
-                            />
-                          </Styled.WorkoutMetricInfoWrapper>
-                          <Styled.WeightUnitPicker
-                            selectedWeightUnit={this.state.weightUnit}
-                            toggleWeightUnit={this.toggleWeightUnit}
-                          />
-                        </Styled.WorkoutMetricWrapper>
-                      </Styled.WorkoutMetricsWrapper>
-
-                      <Styled.EquipmentWrapper>
-                        <Styled.EquipmentOptionLabel>
-                          Extra Equipment
-                        </Styled.EquipmentOptionLabel>
-                        <Styled.EquipmentOptionsWrapper>
-                          {this.state.options.map((option, i) => {
-                            if (i === this.state.selectedEquipment) {
-                              let selectedOption = (
-                                <Styled.SelectedOption key={i}>
-                                  {option}
-                                </Styled.SelectedOption>
-                              );
-                              return selectedOption;
-                            } else {
-                              let unselectedOption = (
-                                <Styled.Option
-                                  key={i}
-                                  name={i}
-                                  onClick={this.onSelectEquipment.bind(this, i)}
-                                  value={i}
-                                >
-                                  {option}
-                                </Styled.Option>
-                              );
-                              return unselectedOption;
-                            }
-                          })}
-                        </Styled.EquipmentOptionsWrapper>
-                      </Styled.EquipmentWrapper>
-
-                      <Styled.AddExerciseButton onClick={this.addExercise}>
-                        + Add Exercise
-                      </Styled.AddExerciseButton>
-                    </Styled.ExerciseWrapper>
+                    <Styled.AddExerciseButton onClick={this.addExercise}>
+                      + Add Exercise
+                    </Styled.AddExerciseButton>
                   </Styled.RightPanelWrapper>
                 </Styled.FormContentWrapper>
               </Styled.ExerciseForm>
