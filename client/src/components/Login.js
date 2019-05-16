@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import "./main.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import * as Styled from "./styles";
 
 export default class Login extends Component {
   state = {
@@ -18,99 +17,83 @@ export default class Login extends Component {
     this.setState({ rememberMe: !this.state.rememberMe });
   };
   render() {
-    let passwordIcon = "icon";
-    let usernameIcon = "icon";
-    let wrapInputUsername = "wrap-input";
-    let wrapInputPassword = "wrap-input";
-    if (this.state.passwordInput) {
-      passwordIcon += " input-active";
-      wrapInputPassword += " wrap-input-active";
-    }
-    if (this.state.usernameInput) {
-      usernameIcon += " input-active";
-      wrapInputUsername += " wrap-input-active";
-    }
-    let rememberMeChecked = "rememberMe-check";
-    let rememberMeUnchecked = "rememberMe-uncheck";
-    if (this.state.rememberMe) {
-      rememberMeUnchecked += " invisible";
-    }
-    if (!this.state.rememberMe) {
-      rememberMeChecked += " invisible";
-    }
-
     return (
-      <div className="wrapper-master">
-        <div className="wrapper-background-image">
-          <div className="background-image" />
-        </div>
-        <div className="container-login">
-          <div className="wrap-login">
+      <Styled.PageWrapper>
+        <Styled.BackgroundImageWrapper>
+          <Styled.BackgroundImage />
+        </Styled.BackgroundImageWrapper>
+        <Styled.LoginContainer>
+          <Styled.LoginWrapper>
             <form className="login-form validate-form" autoComplete="off">
-              <span className="login-form-title">Log in</span>
+              <Styled.LoginFormTitle>Log in</Styled.LoginFormTitle>
 
-              <div className={wrapInputUsername}>
-                <input
-                  className="input"
+              <Styled.UsernameInputWrapper active={this.state.usernameInput}>
+                <Styled.FormFieldInput
                   type="text"
                   name="usernameInput"
                   placeholder="Username"
                   onFocus={this.onFocus}
                   onBlur={this.onBlur}
                 />
-                <div className="">
-                  <FontAwesomeIcon className={usernameIcon} icon="user" />
+                <div>
+                  <Styled.FormFieldIcon
+                    icon="user"
+                    active={this.state.usernameInput}
+                  />
                 </div>
-              </div>
+              </Styled.UsernameInputWrapper>
 
-              <div className={wrapInputPassword}>
-                <input
-                  className="input"
+              <Styled.UsernameInputWrapper active={this.state.passwordInput}>
+                <Styled.FormFieldInput
                   type="password"
                   name="passwordInput"
                   placeholder="Password"
                   onFocus={this.onFocus}
                   onBlur={this.onBlur}
                 />
-                <div className="">
-                  <FontAwesomeIcon className={passwordIcon} icon="unlock" />
+                <div>
+                  <Styled.FormFieldIcon
+                    icon="unlock"
+                    active={this.state.passwordInput}
+                  />
                 </div>
-              </div>
-              <div className="wrap-checkbox-label">
+              </Styled.UsernameInputWrapper>
+
+              <Styled.CheckboxLabelWrapper>
                 <div
                   className="checkbox-icons"
                   id="checkbox-icons"
                   onClick={this.onClick}
                 >
-                  <FontAwesomeIcon
-                    className={rememberMeUnchecked}
+                  <Styled.RememberMeCheckedIcon
                     icon="square"
+                    invisible={this.state.rememberMe}
                   />
-                  <FontAwesomeIcon
-                    className={rememberMeChecked}
+                  <Styled.RememberMeUnCheckedIcon
                     icon="check-square"
+                    invisible={!this.state.rememberMe}
                   />
                 </div>
                 <div onClick={this.onClick}>
-                  <label className="label-checkbox" htmlFor="checkbox-icons">
+                  <Styled.CheckBoxLabel htmlFor="checkbox-icons">
                     Remember me
-                  </label>
+                  </Styled.CheckBoxLabel>
                 </div>
-              </div>
+              </Styled.CheckboxLabelWrapper>
 
-              <div className="container-login-form-btn">
-                <button className="login-form-btn">Login</button>
-              </div>
+              <Styled.LoginButtonWrapper>
+                <Styled.LoginFormButton>Login</Styled.LoginFormButton>
+              </Styled.LoginButtonWrapper>
 
-              <div className="div-forgotPassword">
-                <a href="http://localhost:3000/" className="a-forgotPassword">
+              <Styled.ForgottenPasswordWrapper>
+                <Styled.ForgotPasswordHyperlink href="http://localhost:3000/">
                   Forgot Password?
-                </a>
-              </div>
+                </Styled.ForgotPasswordHyperlink>
+              </Styled.ForgottenPasswordWrapper>
             </form>
-          </div>
-        </div>
-      </div>
+          </Styled.LoginWrapper>
+        </Styled.LoginContainer>
+      </Styled.PageWrapper>
     );
   }
 }

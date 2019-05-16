@@ -77,34 +77,30 @@ export default class MainPage extends Component {
     }
   };
 
-  //TODO
-
+  //TODO: reformat?
   onChangeInputValues = async e => {
-    var numberRegex = RegExp("[0-9]", "g");
-    console.log("setsvalue : " + this.state.setsValue);
-    console.log("e.target.value: " + e.target.value);
+    const numberRegex = RegExp("[0-9]", "g");
     if (
       e.target.value === undefined ||
       e.target.value === null ||
       e.target.value === ""
     ) {
-      console.log("s");
-      await this.setState({ [e.target.name]: "1" });
-    }
-    if (numberRegex.test(e.target.value)) {
-      if (this.state.setsValue === "0") {
-        if (!e.target.value === "0") {
+      await this.setState({ [e.target.name]: e.target.min.toString() });
+    } else if (numberRegex.test(e.target.value.charAt(0))) {
+      if (e.target.value.length > 1) {
+        if (e.target.value.charAt(0) === "0" && e.target.min === "0") {
+        } else if (parseInt(e.target.value.charAt(0)) < e.target.min) {
+        } else {
           await this.setState({ [e.target.name]: e.target.value.toString() });
         }
       } else {
-        await this.setState({ [e.target.name]: e.target.value.toString() });
+        if (e.target.value === "0") {
+          await this.setState({ [e.target.name]: e.target.min.toString() });
+        } else {
+          await this.setState({ [e.target.name]: e.target.value.toString() });
+        }
       }
     }
-    // if (e.target.value >= 0) {
-    //   await this.setState({ [e.target.name]: e.target.value.toString() });
-    // } else {
-    //   await this.setState({ [e.target.name]: "0" });
-    // }
   };
 
   onNewDate = newDate => {
@@ -162,21 +158,50 @@ export default class MainPage extends Component {
 
   addExercise = e => {
     e.preventDefault();
-    if (
-      this.state.updatedExercises.includes(this.state.exerciseNameValue) < 0
+
+    for (
+      let exericiseIndex = 0;
+      exericiseIndex < this.state.updatedExercises.length;
+      exericiseIndex++
     ) {
-      this.setState({ warningMessage: true });
+      if (
+        this.state.updatedExercises[exericiseIndex].name !==
+        this.state.exerciseNameValue
+      ) {
+        console.log("x");
+        this.setState({ warningMessage: true });
+      }
     }
-    const addedExercise = {
-      date: this.state.dateValue,
-      exercise: this.state.exerciseNameValue,
-      sets: this.state.setsValue,
+
+    const setObject = {
       reps: this.state.repsValue,
       weight: this.state.weightValue,
-      weightUnit: this.state.weightUnit,
-      selectedEquipment: this.state.selectedEquipment
+      unit: this.state.weightUnit
     };
-    this.state.currentDayLog.push(addedExercise);
+
+    //first loop the array of exercise to check if this exercise is already included
+    let exerciseFound = false;
+    for (let i = 0; i < this.state.currentDayLog.length; i++) {
+      // if the exercise does exist
+      if (this.state.exerciseNameValue === this.state.currentDayLog[i].name) {
+        exerciseFound = true;
+        for (let setNumber = 0; setNumber < this.state.setsValue; setNumber++) {
+          this.state.currentDayLog[i].sets.push(setObject);
+        }
+      }
+    }
+    //if it's not included, add a new one
+    if (exerciseFound === false) {
+      let setsArray = [];
+      for (let setNumber = 0; setNumber < this.state.setsValue; setNumber++) {
+        setsArray.push(setObject);
+      }
+      const addedExercise = {
+        name: this.state.exerciseNameValue,
+        sets: setsArray
+      };
+      this.state.currentDayLog.push(addedExercise);
+    }
     this.setState({
       currentDayLog: this.state.currentDayLog
     });
@@ -198,7 +223,7 @@ export default class MainPage extends Component {
           <Styled.ContentWrapper>
             <Styled.FormWrapper>
               <Styled.ExerciseForm>
-                <Styled.FormTitle />
+                {/* <Styled.FormTitle /> */}
                 <Styled.FormContentWrapper>
                   <Styled.LeftPanelWrapper>
                     <Styled.DateLabel>Workout date</Styled.DateLabel>
@@ -264,7 +289,6 @@ export default class MainPage extends Component {
                       <Styled.ExerciseNameInput
                         name="exerciseNameInput"
                         type="text"
-                        placeholder="Search for exercises..."
                         autoComplete="off"
                         onFocus={this.onFocus}
                         onBlur={this.onBlur}
@@ -324,6 +348,7 @@ export default class MainPage extends Component {
                             Reps
                           </Styled.WorkoutMetricLabel>
                           <Styled.WorkoutMetricInput
+                            min="1"
                             type="number"
                             value={this.state.repsValue.toString()}
                             onChange={this.onChangeInputValues}
@@ -343,6 +368,7 @@ export default class MainPage extends Component {
                             Weight
                           </Styled.WorkoutMetricLabel>
                           <Styled.WorkoutMetricInput
+                            min="0"
                             type="number"
                             value={this.state.weightValue.toString()}
                             onChange={this.onChangeInputValues}

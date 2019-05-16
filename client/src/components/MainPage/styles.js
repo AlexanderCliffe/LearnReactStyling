@@ -15,20 +15,18 @@ export const PageWrapper = styled.div`
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   background-color: rgb(225, 242, 243);
   height: 100vh;
+  width: 100%;
 `;
 
 export const ContentWrapper = styled.div`
   width: 100%;
   display: flex;
-  flex-wrap: wrap;
+
   justify-content: center;
   align-items: center;
   padding: 5px;
   top: 18%;
 
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
   position: absolute;
   z-index: 1;
 `;
@@ -36,17 +34,10 @@ export const ContentWrapper = styled.div`
 export const FormWrapper = styled.div`
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   position: relative;
-
   width: 1000px;
-  border-radius: 12px;
-  padding: 15px 15px 15px 15px;
-  height: 900px;
-
+  height: 100%;
   background: #f5f5f5;
-
-  @media (max-width: 700px) {
-    height: 1300px;
-  }
+  border: 1px solid;
 `;
 
 export const ExerciseForm = styled.form`
@@ -74,8 +65,6 @@ export const FormContentWrapper = styled.div`
 `;
 
 const PanelWrapper = styled.div`
-  border: 1px solid;
-
   width: 50%;
   padding: 1.5rem;
   display: flex;
@@ -99,8 +88,6 @@ export const DateLabel = styled.label`
   font-size: 1.3rem;
 `;
 
-export const test = styled.div``;
-
 export const DayWrapper = styled.div`
   ${props =>
     props.hide
@@ -113,6 +100,21 @@ export const DayWrapper = styled.div`
     align-items: center;
     overflow: auto;
     width: 100%;
+
+    &::-webkit-scrollbar {
+    width: 10px;
+    border-radius: 18px;
+    }
+    &::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+    margin-top: 1px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: #888; 
+    }
+    &::-webkit-scrollbar-thumb:hover {
+      background: #555; 
+    } 
   `}
 `;
 
@@ -148,7 +150,7 @@ export const TrashIcon = styled(Icon)`
 `;
 
 export const RightPanelWrapper = styled(PanelWrapper)`
-  border-left: 0;
+  border-left: 1px solid;
   @media (max-width: 700px) {
     border-left: 1px solid;
   }
@@ -179,11 +181,10 @@ export const ExerciseListItem = styled.li`
 `;
 
 export const ExerciseNameInput = styled.input`
-  background-position: 10px 12px; /* Position the search icon */
   width: 100%; /* Full-width */
-  font-size: 16px; /* Increase font-size */
+
   padding: 12px 20px 12px 40px; /* Add some padding */
-  border: 1.5px solid #ddd; /* Add a grey border */
+  border: 1.5px solid black;
   margin-bottom: 4px; /* Add some space below the input */
   margin-top: 0.8rem;
 
@@ -268,7 +269,7 @@ export const WorkoutMetricInput = styled.input`
   width: 4rem;
   height: 4rem;
   text-align: center;
-  border: 1.5px solid #ddd; /* Add a grey border */
+  border: 1.5px solid black; /* Add a grey border */
   margin-right: 0.5rem;
   margin-top: 0.2rem;
   :focus {

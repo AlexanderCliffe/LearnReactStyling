@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import Login from "./components/Login";
+import Login2 from "./components/login2";
 //import Navbar from "./components/Navbar";
 import MainPage from "./components/MainPage/MainPage";
+import GlobalStyle from "./globalStyle";
 //import datepicker from "./components/datePicker/datePicker";
 //import test from "./components/tester/index";
 //import Calendar from "./components/Calendar/index";
@@ -48,13 +50,16 @@ library.add(
   faCaretSquareDown,
   faExclamationTriangle
 );
+
 class App extends Component {
   render() {
     return (
       <div className="App">
+        <GlobalStyle />
         <Router>
           <Switch>
             <Route exact path="/login" component={Login} />
+            <Route exact path="/login2" component={Login2} />
             <Route exact path="/" component={MainPage} />
           </Switch>
         </Router>

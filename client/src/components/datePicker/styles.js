@@ -25,6 +25,9 @@ export const DatePickerFormGroup = styled(FormGroup)`
   border-radius: 5px;
   overflow: hidden;
   text-align: center;
+  :hover {
+    border: 2px solid #0abde3;
+  }
 `;
 
 export const DatePickerLabel = styled(Label)`
